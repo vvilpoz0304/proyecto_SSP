@@ -1,10 +1,12 @@
 window.addEventListener("DOMContentLoaded", function () {
+  //Estas funciones son para ocultar/mostrar los div del inicio de sesion o registro al momento de hacer click
   this.document
     .getElementById("registro")
     .addEventListener("click", function () {
       document.getElementById("signIn").style.display = "none";
       document.getElementById("signUp").style.display = "flex";
     });
+
   this.document.getElementById("inicio").addEventListener("click", function () {
     document.getElementById("signUp").style.display = "none";
     document.getElementById("signIn").style.display = "flex";
@@ -16,41 +18,44 @@ window.addEventListener("DOMContentLoaded", function () {
 
   let nombreUsuario;
   let contrasena;
-  let users = [];
 
+  // Función para que en caso de que no haya ningun array con los usuarios, crea uno donde estará el usuairo Admin
+  // De esta manera el usuario admin estará siempre creado.
   function listaUsuarios() {
-    let lista = localStorage.getItem("usuariosValidados");
-    if (lista == null || lista == undefined) {
+    let lista = JSON.parse(localStorage.getItem("usuariosValidados"));  
+    if (!lista) {
+      lista=[];
       let admin = new Usuario();
       admin.setUsuario("admin", "admin", "admin", true);
-      users.push(admin);
-      localStorage.setItem("usuariosValidados", JSON.stringify(users));
+      lista.push(admin);
+      let yo = new Usuario();
+      yo.setUsuario("Valentin", "kiko", "profesor", true);
+      lista.push(yo);
+      localStorage.setItem("usuariosValidados", JSON.stringify(lista));
     } else {
-      users = JSON.parse(lista);
+      lista = JSON.parse(localStorage.getItem("usuariosValidados"));
     }
   }
-
-  listaUsuarios();
   let mensajeError = this.document.getElementById("mensaje");
-  console.log(mensajeError);
-  users = JSON.parse(this.localStorage.getItem("usuariosValidados"));
+  lista = JSON.parse(this.localStorage.getItem("usuariosValidados"));
 
   // Función para comprobar que los datos corresponden a un usuario
   document.getElementById("acceder").addEventListener("submit", function (e) {
-    e.preventDefault();
+    listaUsuarios();
+    e.preventDefault(); // Para evitar problemas con el submit y que los datos se manden correctamente;
     nombreUsuario = document.getElementById("usuario").value;
     contrasena = document.getElementById("contrasenaInicio").value;
-    let red = false;
-    for (let i = 0; i < users.length; i++) {
-      if (
-        users[i].nombre == nombreUsuario &&
-        users[i].contrasena == contrasena
-      ) {
-        if (users[i].validado == true) {
-          localStorage.setItem("usuario", users[i].nombre);
+    for (let i = 0; i < lista.length; i++) {
+      //Bucle para recorrer el array de objetos con los usuarios
+      if (lista[i].nombre == nombreUsuario && lista[i].contrasena == contrasena) {
+        if (lista[i].validado == true) {
+          // En caso de que coincida el nombre de usuario y su contraseña, el usuario será redirigido a la página principal
+          localStorage.setItem("usuario", lista[i].nombre);
           window.location.href = "home.html";
         } else {
+          // En caso de que no coincidan los credenciales, mostrará un mensaje de error;
           if (mensajeError == null) {
+            // En caso de que no exista el elemento con el mensaje de error, lo creará, sino lo reescríbira;
             mensajeError = document.createElement("p");
             let p = document
               .querySelector("#acceder")
@@ -70,7 +75,6 @@ window.addEventListener("DOMContentLoaded", function () {
           mensajeError.innerHTML = `Usuario o contraseña incorrectos.`;
           mensajeError.style.color = "red";
           document.getElementById("acceder").append(mensajeError);
-          console.log(mensajeError);
         } else mensajeError.innerHTML = `Usuario o contraseña incorrectos.`;
       }
     }
@@ -83,18 +87,13 @@ window.addEventListener("DOMContentLoaded", function () {
   let nombreNuevo;
   let contrasenaNueva;
   let rolNuevo;
-  let usuariosParaValidar = [];
   let mensajeContrasena = this.document.getElementById("mensaje");
-
 
   this.document
     .getElementById("registrarse")
     .addEventListener("submit", function () {
-      let listaNo = localStorage.getItem("usuariosNoValidados");
-
-      if (listaNo == null || listaNo == undefined) {
-        localStorage.setItem("usuariosNoValidados", usuariosParaValidar);
-      }
+      listaUsuarios();
+      let lista = JSON.parse(localStorage.getItem("usuariosValidados"));
 
       nombreNuevo = document.getElementById("nombre").value;
       contrasenaNueva = document.getElementById("contrasenaRegistro").value;
@@ -102,21 +101,25 @@ window.addEventListener("DOMContentLoaded", function () {
 
       if (mensajeContrasena == null) {
         mensajeContrasena = document.createElement("p");
-        let p = document.querySelector("#registrarse").getElementsByTagName("p");
+        let p = document
+          .querySelector("#registrarse")
+          .getElementsByTagName("p");
         p.id = "mensaje";
       }
 
-      if (validarContrasena(contrasenaNueva)) {
-        let nuevoUsuario = new Usuario();
-        nuevoUsuario.setUsuario(nombreNuevo, contrasenaNueva, rolNuevo, false);
-        usuariosParaValidar.push(nuevoUsuario);
-        localStorage.setItem("usuariosNoValidados", JSON.stringify(usuariosParaValidar));
-      } else{
+      //if (validarContrasena(contrasenaNueva)) {
+      let nuevoUsuario = new Usuario();
+      nuevoUsuario.setUsuario(nombreNuevo, contrasenaNueva, rolNuevo, false);
+      lista.push(nuevoUsuario);
+      localStorage.setItem("usuariosValidados", JSON.stringify(lista));
+      /*
+    } else{
         mensajeContrasena.innerHTML = `La contraseña debe tener entre 8 y 16 caracteres, mayus, minus y símbolos`;
       mensajeContrasena.style.color = "red";
       document.getElementById("registrarse").append(mensajeContrasena);
       console.log(mensajeContrasena);
       }
+      */
     });
 
   function validarContrasena(contrasenaUsuario) {
@@ -163,7 +166,6 @@ window.addEventListener("DOMContentLoaded", function () {
       mensajeContrasena.innerHTML = `Usuario Registrado`;
       mensajeContrasena.style.color = "green";
       document.getElementById("registrarse").append(mensajeContrasena);
-      console.log(mensajeContrasena);
       return true;
     }
   }
