@@ -1,2 +1,0 @@
-# Mi proyecto
-## Subtítulo
