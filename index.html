@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentin's Car</title>
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div id="container">
+      <h1>Valentin's Car</h1>
+    </div>
+    <img src="images/bandas.png" id="bandas">
+    <div id="signIn">
+      <h3>Inicio de sesión</h3>
+      <form id="acceder">
+        <input id="usuario" type="text" placeholder="Nombre de Usuario" />
+        <input id="contrasenaInicio" type="password" placeholder="Contraseña" />
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+      <p>¿No tienes una cuenta? <a href="#" id="registro">Registrate</a></p>
+    </div>
+    <div id="signUp">
+      <h3>Registro</h3>
+      <form id="registrarse">
+        <input id="nombre" type="text" placeholder="Nombre" />
+        <input
+          id="contrasenaRegistro"
+          type="password"
+          placeholder="Contraseña"
+        />
+        <select id="rol">
+          <option value="estudiante">Estudiante</option>
+          <option value="profesor">Profesor</option>
+        </select>
+        <button type="submit">Registrarme</button>
+      </form>
+      <p>¿Ya tienes una cuenta? <a id="inicio">Inicia Sesión</a></p>
+    </div>
+    <img src="images/fondo.jpg"></img>
+    <script src="script/inicioRegistro.js"></script>
+    <script src="script/usuario.js"></script>
+  </body>
+</html>
