@@ -45,6 +45,7 @@ window.addEventListener("DOMContentLoaded", function () {
     e.preventDefault(); // Para evitar problemas con el submit y que los datos se manden correctamente;
     nombreUsuario = document.getElementById("usuario").value;
     contrasena = document.getElementById("contrasenaInicio").value;
+    alert(lista)
     for (let i = 0; i < lista.length; i++) {
       //Bucle para recorrer el array de objetos con los usuarios
       if (lista[i].nombre == nombreUsuario && lista[i].contrasena == contrasena) {

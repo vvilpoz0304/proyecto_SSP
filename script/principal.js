@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", function () {
       rolLogueado = lista[i].rol;
     }
   }
+
   if(rolLogueado == "admin"){
     mostrarAdmin();
   } else if(rolLogueado == "profesor"){
