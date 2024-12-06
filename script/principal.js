@@ -28,6 +28,11 @@ window.addEventListener("DOMContentLoaded", function () {
   function mostrarProfe() {
     document.getElementById("panelAdmin").style.display = "none";
     document.getElementById("panelProf").style.display = "flex";
+    document.body.style.backgroundImage = "url('../images/fondo_prof.webp')"
+    document.body.style.backgroundSize = "cover"; 
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
+    
   }
   function mostrarAlumno() {
     document.getElementById("panelAdmin").style.display = "none";
