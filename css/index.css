@@ -98,7 +98,7 @@ button {
   border-radius: 20px;
   background-color: #78c5a5;
   margin-top: 3%;
-  transition: ease-in .5s;
+  transition: ease-in .3s;
 }
 
 button:hover, button:focus {

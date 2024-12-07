@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Mostrar paneles según rol
   if(rolLogueado == "admin"){
     mostrarAdmin();
   } else if(rolLogueado == "profesor"){
@@ -18,11 +19,44 @@ window.addEventListener("DOMContentLoaded", function () {
     mostrarAlumno();
   }
 
+  // Redireccion a "Validar Usuarios";
+  this.document.getElementById("panelAdmin").firstElementChild.addEventListener('click', function(){
+    window.location.href = "validarUsuarios.html";
+  })
+  // Redirecciones de las funcionalidades del panel de profesores;
+  this.document.getElementById("panelProf").firstElementChild.addEventListener('click', function(){
+    window.location.href = ""
+  })
+  this.document.getElementById("panelProf").firstElementChild.nextElementSibling.addEventListener('click', function(){
+    window.location.href = ""
+  })
+  this.document.getElementById("panelProf").lastElementChild.previousElementSibling.addEventListener('click', function(){
+    window.location.href = ""
+  })
+  this.document.getElementById("panelProf").lastElementChild.addEventListener('click', function(){
+    window.location.href = ""
+  })
+  //Redirecciones de las funcionalidades del panel de Alumnos;
+  this.document.getElementById("panelAlum").firstElementChild.addEventListener('click', function(){
+    window.location.href = ""
+  })
+  this.document.getElementById("panelAlum").firstElementChild.nextElementSibling.addEventListener('click', function(){
+    window.location.href = ""
+  })
+  this.document.getElementById("panelAlum").lastElementChild.addEventListener('click', function(){
+    window.location.href = ""
+  })
 
-// Funciones para ocultar/mostrar los areas de los diferentes roles
+
+
+// Funciones para ocultar/mostrar los areas de los diferentes roles yu establecer los fondos de dichas páginas.
   function mostrarAdmin() {
     document.getElementById("panelAdmin").style.display = "flex";
     document.getElementById("panelProf").style.display = "flex";
+    document.body.style.backgroundImage = "url('../images/fondo_admin.webp')"
+    document.body.style.backgroundSize = "cover"; 
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
   }
 
   function mostrarProfe() {
@@ -37,5 +71,9 @@ window.addEventListener("DOMContentLoaded", function () {
   function mostrarAlumno() {
     document.getElementById("panelAdmin").style.display = "none";
     document.getElementById("panelProf").style.display = "none";
+    document.body.style.backgroundImage = "url('../images/fondo_alum.webp')"
+    document.body.style.backgroundSize = "cover"; 
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
   }
 });
