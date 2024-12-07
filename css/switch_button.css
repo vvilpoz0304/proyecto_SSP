@@ -1,47 +1,31 @@
-:root {
-    --color-green: #00a878;
-    --color-red: #fe5e41;
-    --color-button: #fdffff;
-    --color-black: #000;
-}
-
-.switch-button {
-    display: inline-block;
-    position: relative;
-}
-
-.switch-button .switch-button__checkbox {
-    display: none; /* Oculta el input */
-}
-
-.switch-button .switch-button__label {
-    background-color: var(--color-red);
-    width: 2.5rem; /* Ancho del switch */
-    height: 1.5rem; /* Alto del switch */
-    border-radius: 1.5rem; /* Hace que el switch sea ovalado */
-    display: inline-block;
-    position: relative;
-    cursor: pointer; /* Cambia el cursor al pasar sobre el label */
-}
-
-.switch-button .switch-button__label:before {
-    transition: .2s; /* Transición suave */
-    display: block;
-    position: absolute;
-    width: 1.5rem; /* Tamaño del círculo */
-    height: 1.5rem;
-    background-color: var(--color-button);
-    content: ''; /* Necesario para generar el círculo */
-    border-radius: 50%;
-    box-shadow: inset 0px 0px 0px 1px var(--color-black);
-    top: 0; /* Alinea verticalmente */
-    left: 0; /* Alinea a la izquierda */
-}
-
-.switch-button .switch-button__checkbox:checked + .switch-button__label {
-    background-color: var(--color-green); /* Cambia el color del fondo */
-}
-
-.switch-button .switch-button__checkbox:checked + .switch-button__label:before {
-    transform: translateX(1rem); /* Desplaza el círculo */
-}
+.toggle {
+    background: #eee;
+    width: 50px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 50px;
+    margin: 25px;
+  }
+  
+  label {
+    width: 30px;
+    height: 25px;
+    background: red;
+    display: flex;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.25s ease 0s;
+  }
+  
+  .check {
+    display: none;
+  }
+  
+  .check:checked + label {
+    margin-left: 25px;
+    background: green;
+  }
+  label {
+   position: relative;
+   z-index: 1;
+  }

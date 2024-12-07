@@ -1,0 +1,22 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+h3{
+    width: 25%;
+}
+table{
+    width: 100%;
+    border: 1px solid black;
+}
+td{
+    width: 25%;
+}
+#renglon{
+    display: flex;
+    flex-direction: row;
+}
+input{
+    width: 25%;
+    height: 2%;
+}

@@ -36,6 +36,9 @@ window.addEventListener("DOMContentLoaded", function () {
       lista = JSON.parse(localStorage.getItem("usuariosValidados"));
     }
   }
+  // Ejecutamos esta función para que siempre la lista este creada (sino en caso de borrar la lista del localStorage la primera vez que intentes acceder dará un error
+  // a no ser que recargues);
+  listaUsuarios();
   let mensajeError = this.document.getElementById("mensaje");
   lista = JSON.parse(this.localStorage.getItem("usuariosValidados"));
 
