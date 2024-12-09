@@ -66,8 +66,8 @@ window.addEventListener("DOMContentLoaded", function () {
             let icono = document.createElement('img');
             icono.setAttribute("src", "images/icono_eliminar.png");
             icono.setAttribute('class', 'eliminar')
+            icono.setAttribute('id', i)
             botonEliminar.setAttribute('class', 'eliminar');
-            botonEliminar.setAttribute('id', i)
             botonEliminar.append(icono);
             columnaBorrar.append(botonEliminar);
             fila.append(columnaBorrar);

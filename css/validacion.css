@@ -65,7 +65,9 @@ td{
     background-color: rgb(136, 175, 136) ;
 }
 .eliminar img{
-    width: 25px;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
 }
 input, select{
     text-align: center;
