@@ -61,6 +61,19 @@ window.addEventListener("DOMContentLoaded", function () {
             columnaRol.append(registroRol);
             fila.append(columnaRol);
 
+            let columnaBorrar = document.createElement('td');
+            let botonEliminar = document.createElement('button');
+            let icono = document.createElement('img');
+            icono.setAttribute("src", "images/icono_eliminar.png");
+            icono.setAttribute('class', 'eliminar')
+            botonEliminar.setAttribute('class', 'eliminar');
+            botonEliminar.setAttribute('id', i)
+            botonEliminar.append(icono);
+            columnaBorrar.append(botonEliminar);
+            fila.append(columnaBorrar);
+
+
+
 
             document.getElementById('registro').lastElementChild.append(fila);
         }
@@ -74,7 +87,7 @@ window.addEventListener("DOMContentLoaded", function () {
             let nombreNuevo = document.getElementById('nombreUsuario' + i).value;
             let contrasenaNueva = document.getElementById('contrasenaUsuario' + i).value;
             let rolNuevo = document.getElementById('rolUsuario' + i).value;
-            
+
             // Actualizamos el array del localStorage;
             listaUsuarios[i] = {
                 validado: validadoNuevo,
@@ -84,15 +97,28 @@ window.addEventListener("DOMContentLoaded", function () {
             };
 
             localStorage.setItem('usuariosValidados', JSON.stringify(listaUsuarios));
-            
+
         }
         let mensajeExito = document.createElement('p');
-            mensajeExito.setAttribute('class', 'exito');
-            mensajeExito.textContent = "Los datos han sido actualizado correctamente. =D";
+        mensajeExito.setAttribute('class', 'exito');
+        mensajeExito.textContent = "Los datos han sido actualizado correctamente. =D";
 
         document.getElementsByTagName('body')[0].firstElementChild.nextElementSibling.after(mensajeExito);
-        
+
     })
 
     escribirDatos();
+
+    this.document.getElementById('registro').addEventListener('click', function (event) {
+        if (event.target.classList.contains('eliminar')) {
+            let numeroUsuario = event.target.getAttribute('id');
+            listaUsuarios.splice(numeroUsuario, 1);
+            localStorage.setItem('usuariosValidados', JSON.stringify(listaUsuarios));
+            window.location.reload();
+
+        }
+    })
+
+
+
 })

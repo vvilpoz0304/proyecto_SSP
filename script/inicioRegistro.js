@@ -22,9 +22,9 @@ window.addEventListener("DOMContentLoaded", function () {
   // Función para que en caso de que no haya ningun array con los usuarios, crea uno donde estará el usuairo Admin
   // De esta manera el usuario admin estará siempre creado.
   function listaUsuarios() {
-    let lista = JSON.parse(localStorage.getItem("usuariosValidados"));  
+    let lista = JSON.parse(localStorage.getItem("usuariosValidados"));
     if (!lista) {
-      lista=[];
+      lista = [];
       let admin = new Usuario();
       admin.setUsuario("admin", "admin", "admin", true);
       lista.push(admin);
@@ -111,10 +111,17 @@ window.addEventListener("DOMContentLoaded", function () {
       }
 
       //if (validarContrasena(contrasenaNueva)) {
-      let nuevoUsuario = new Usuario();
-      nuevoUsuario.setUsuario(nombreNuevo, contrasenaNueva, rolNuevo, false);
-      lista.push(nuevoUsuario);
-      localStorage.setItem("usuariosValidados", JSON.stringify(lista));
+      if (nombreNuevo == null || nombreNuevo == "" || contrasenaNueva == null || contrasenaNueva == "") {
+        let mensajeError = document.createElement('p');
+        mensajeError.textContent = "Los campos no pueden estar vacios."
+        mensajeError.style.color = 'red';
+        document.getElementById('registrarse').lastElementChild.after(mensajeError);
+      } else {
+        let nuevoUsuario = new Usuario();
+        nuevoUsuario.setUsuario(nombreNuevo, contrasenaNueva, rolNuevo, false);
+        lista.push(nuevoUsuario);
+        localStorage.setItem("usuariosValidados", JSON.stringify(lista));
+      }
       /*
     } else{
         mensajeContrasena.innerHTML = `La contraseña debe tener entre 8 y 16 caracteres, mayus, minus y símbolos`;

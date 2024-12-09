@@ -1,11 +1,13 @@
 *{
     margin: 0%;
     padding: 0%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 body{
     height: 100vh;
     background-color: linear-gradient(rgb(77, 170, 139), lightblue);
     opacity: 100%;
+    
 }
 header{
     background-color: rgb(122, 163, 122);
@@ -28,13 +30,14 @@ header button{
     font-weight: bold;
     font-size: 125%;
     background-color: rgb(122, 163, 122);
-    transition: ease-in .5s;
+    transition: ease-in .2s;
 
 }
 header button:hover{
     background-color: rgb(98, 134, 98);
 }
 footer{
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
