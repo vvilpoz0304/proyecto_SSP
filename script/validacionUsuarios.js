@@ -103,8 +103,7 @@ window.addEventListener("DOMContentLoaded", function () {
         mensajeExito.setAttribute('class', 'exito');
         mensajeExito.textContent = "Los datos han sido actualizado correctamente. =D";
 
-        document.getElementsByTagName('body')[0].firstElementChild.nextElementSibling.after(mensajeExito);
-
+        document.getElementsByTagName('main')[0].firstElementChild.nextElementSibling.after(mensajeExito);
     })
 
     escribirDatos();

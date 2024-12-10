@@ -40,7 +40,9 @@ td{
     width: 20%;
     text-align: center;
 }
-
+main{
+    height: 100%;
+}
 #save{
     margin:  1% 0% 10% 88%;
     background-color: rgb(149, 194, 149);

@@ -23,28 +23,29 @@ window.addEventListener("DOMContentLoaded", function () {
   this.document.getElementById("panelAdmin").firstElementChild.addEventListener('click', function(){
     window.location.href = "validarUsuarios.html";
   })
+
   // Redirecciones de las funcionalidades del panel de profesores;
   this.document.getElementById("panelProf").firstElementChild.addEventListener('click', function(){
-    window.location.href = ""
+    window.location.href = "crearPregunta.html"
   })
   this.document.getElementById("panelProf").firstElementChild.nextElementSibling.addEventListener('click', function(){
-    window.location.href = ""
+    window.location.href = "gestionarCategorias.html"
   })
   this.document.getElementById("panelProf").lastElementChild.previousElementSibling.addEventListener('click', function(){
-    window.location.href = ""
+    window.location.href = "generarExamen.html"
   })
   this.document.getElementById("panelProf").lastElementChild.addEventListener('click', function(){
-    window.location.href = ""
+    window.location.href = "verResultados.html"
   })
   //Redirecciones de las funcionalidades del panel de Alumnos;
   this.document.getElementById("panelAlum").firstElementChild.addEventListener('click', function(){
-    window.location.href = ""
+    window.location.href = "realizarExamen.html"
   })
   this.document.getElementById("panelAlum").firstElementChild.nextElementSibling.addEventListener('click', function(){
-    window.location.href = ""
+    window.location.href = "repetirExamen.html"
   })
   this.document.getElementById("panelAlum").lastElementChild.addEventListener('click', function(){
-    window.location.href = ""
+    window.location.href = "verResultados.html"
   })
 
 
