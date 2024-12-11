@@ -18,6 +18,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     let columnaCategoria = this.document.createElement("td");
     let nombreCategoria = this.document.createElement("input");
+    nombreCategoria.setAttribute("id", "nombreCategoria"+i)
     nombreCategoria.setAttribute("type", "text");
     nombreCategoria.value = listaCategorias[i];
     columnaCategoria.append(nombreCategoria);
@@ -36,6 +37,7 @@ window.addEventListener("DOMContentLoaded", function () {
     this.document.getElementsByTagName("table")[0].append(fila);
   }
   let botonGuardar = this.document.createElement("button");
+  botonGuardar.setAttribute("id", "save");
   botonGuardar.textContent = "Guardar Cambios";
   this.document.getElementsByTagName("table")[0].after(botonGuardar);
 
@@ -57,6 +59,19 @@ window.addEventListener("DOMContentLoaded", function () {
         listaCategorias.splice(nombreCategoria, 1);
         localStorage.setItem("categorias", JSON.stringify(listaCategorias));
         window.location.reload();
+      }
+    });
+
+    this.document.getElementById('save').addEventListener('click', function () {
+      for (let i = 1; i < listaCategorias.length; i++) {
+          //Conseguimos los datos  que han sido cambiados;
+          let categoriaNueva = document.getElementById('nombreCategoria' + i).value;
+          
+          // Actualizamos el array del localStorage;
+          listaCategorias[i] = categoriaNueva;
+
+          localStorage.setItem('categorias', JSON.stringify(listaCategorias));
+
       }
     });
 });
