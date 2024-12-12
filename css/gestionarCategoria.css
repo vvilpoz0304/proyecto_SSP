@@ -1,19 +1,37 @@
 body{
     background-color: rgb(197, 221, 197);
 }
-#listadoCategorias{
+main{
+    flex: 1;
+    margin-top: 2%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+#listadoCategorias{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
-#listadoCategorias button{
-    display: block;
-
+main button{
+    margin-left: 5%;
+    
+}
+button{
+    height: 150%;
+    background-color: rgb(149, 194, 149);
+    border: none;
+    border-radius: 15px;
+    transition: ease-in .3s;
+}
+button:hover{
+    background-color: rgb(114, 148, 114) ;
 }
 table{
-    width: 50%;
-    align-items: center;
+    margin-top: 1%;
+    width: 20%;
+    height: 50%;
     text-align: center;
 }
 tr{
@@ -22,20 +40,17 @@ tr{
 td{
     border: 1px solid black;
     width: auto;
-    text-align: center;
-}
-main{
-    height: 100%;
-}
-input, select{
-    text-align: center;
-    width: auto;
     height: 10%;
+    text-align: center;
+}
+input{
+    text-align: center;
+    width: 90%;
+    height: 60%;
     border-radius: 10px;
     border-color: rgb(87, 119, 87);
     border: none;
 }
-
 .eliminar{
     width: 30px;
     height: 30px;
@@ -51,4 +66,13 @@ input, select{
     width: 30px;
     height: 30px;
     object-fit: contain;
+}
+#save{
+    margin: 1% 0% 0% 12%;
+    width: 5%;
+    height: 4.3%;
+}
+
+input:hover{
+    font-weight: bold;
 }

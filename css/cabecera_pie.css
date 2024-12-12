@@ -4,10 +4,11 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 body{
-    height: 100vh;
-    background-color: linear-gradient(rgb(77, 170, 139), lightblue);
-    opacity: 100%;
-    
+    height: 100%;
+    background-color: rgb(197, 221, 197);
+}
+main{
+    height: 100%;
 }
 header{
     background-color: rgb(122, 163, 122);
@@ -38,6 +39,7 @@ header button:hover{
 footer{
     width: 100%;
     display: flex;
+    align-self: flex-end;
     align-items: center;
     justify-content: center;
     background-color:rgb(122, 163, 122) ;

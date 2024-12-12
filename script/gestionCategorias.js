@@ -8,9 +8,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // DEclaramos la tabla y la añadimos en el html;
   let tabla = this.document.createElement("table");
-  document
-    .getElementById("listadoCategorias")
-    .firstElementChild.nextElementSibling.after(tabla);
+  document.getElementById("listadoCategorias").after(tabla);
 
     //Recorremos el array del LocalStorage para ir escribiendolos en la tabla
   for (let i = 0; i < listaCategorias.length; i++) {
@@ -53,7 +51,7 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   //Funcion para borrar registros de categorias.
-  this.document.getElementById("listadoCategorias").addEventListener("click", function (event) {
+  this.document.getElementsByTagName("main")[0].addEventListener("click", function (event) {
       if (event.target.classList.contains("eliminar")) {
         let nombreCategoria = event.target.getAttribute("id");
         listaCategorias.splice(nombreCategoria, 1);
