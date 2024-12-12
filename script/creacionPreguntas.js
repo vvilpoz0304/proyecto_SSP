@@ -2,10 +2,19 @@ window.addEventListener('DOMContentLoaded', function () {
 
     //Creamos el array con las preguntas en caso de que no haya.
     let listaPreguntas = JSON.parse(localStorage.getItem('preguntas')) || [];
-
+    let listaCategorias = JSON.parse(localStorage.getItem('categorias')) || [];
     //Si el array del local Storage está vacio añadimos el array al localStorage
     if (listaPreguntas.length === 0) {
         localStorage.setItem('preguntas', JSON.stringify(listaPreguntas));
+    }
+
+    if (listaCategorias.length > 0) {
+        for (let i = 0; i < listaCategorias.length; i++) {
+            let opcionCategorias = document.createElement('option');
+            opcionCategorias.setAttribute("value", listaCategorias[i]);
+            opcionCategorias.textContent = listaCategorias[i];
+            document.getElementsByTagName('select')[0].append(opcionCategorias);
+        }
     }
 
     // Funcion para el boton añadir
@@ -28,5 +37,6 @@ window.addEventListener('DOMContentLoaded', function () {
         //Actualizamos el local Storage
         localStorage.setItem('preguntas', JSON.stringify(listaPreguntas));
     });
+
 
 });

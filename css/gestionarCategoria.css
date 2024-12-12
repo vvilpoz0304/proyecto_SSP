@@ -1,3 +1,41 @@
+body{
+    background-color: rgb(197, 221, 197);
+}
+#listadoCategorias{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#listadoCategorias button{
+    display: block;
+
+}
+table{
+    width: 50%;
+    align-items: center;
+    text-align: center;
+}
+tr{
+    border: 1px solid black;
+}
+td{
+    border: 1px solid black;
+    width: auto;
+    text-align: center;
+}
+main{
+    height: 100%;
+}
+input, select{
+    text-align: center;
+    width: auto;
+    height: 10%;
+    border-radius: 10px;
+    border-color: rgb(87, 119, 87);
+    border: none;
+}
+
 .eliminar{
     width: 30px;
     height: 30px;

@@ -63,7 +63,8 @@ window.addEventListener("DOMContentLoaded", function () {
     });
 
     this.document.getElementById('save').addEventListener('click', function () {
-      for (let i = 1; i < listaCategorias.length; i++) {
+      for (let i = 0; i < listaCategorias.length; i++) {
+
           //Conseguimos los datos  que han sido cambiados;
           let categoriaNueva = document.getElementById('nombreCategoria' + i).value;
           
