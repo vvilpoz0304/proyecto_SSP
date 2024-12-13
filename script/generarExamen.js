@@ -1,117 +1,174 @@
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener("DOMContentLoaded", function () {
+  //Declaramos el array donde vamos a guardar las preguntas de la categoria elegida;
+  let preguntasDeCategoria = [];
 
-    let preguntasDeCategoria = [];
-    let listaPreguntas = JSON.parse(this.localStorage.getItem('preguntas'));
-    let num = 0;
+  //Declaramos el array de examenes;
+  let examenes = JSON.parse(localStorage.getItem("examenes")) || [];
+  let numeroDeExamenes = examenes.length;
 
-    let listaCategorias = JSON.parse(localStorage.getItem('categorias')) || [];
-    if (listaCategorias.length > 0) {
-        let opcionEnBlanco = document.createElement('option');
-        opcionEnBlanco.setAttribute("value", "...");
-        opcionEnBlanco.textContent = "...";
-        document.getElementsByTagName('select')[0].append(opcionEnBlanco);
-        for (let i = 0; i < listaCategorias.length; i++) {
-            let opcionCategorias = document.createElement('option');
-            opcionCategorias.setAttribute("value", listaCategorias[i]);
-            opcionCategorias.textContent = listaCategorias[i];
-            document.getElementsByTagName('select')[0].append(opcionCategorias);
-        }
+  let listaPreguntas = JSON.parse(this.localStorage.getItem("preguntas"));
+
+  // Variable que vamos a tomar como indice;
+  let num = 0;
+
+  let listaCategorias = JSON.parse(localStorage.getItem("categorias")) || [];
+
+  // Creamos lla tabla donde vamos a mostrar la pregunta para añadir o no;
+  let formPreguntas = document.getElementById("preguntas");
+  let tabla = document.createElement("table");
+  tabla.setAttribute("id", "tablaPreguntas");
+  formPreguntas.append(tabla);
+
+  // Creamos los botones para ppoder pasar a la siguiente y anterior pregunta;
+  let botonAnterior = this.document.createElement("button");
+  let botonSiguiente = this.document.createElement("button");
+
+  botonAnterior.setAttribute("id", "preguntaAnterior");
+  botonAnterior.textContent = "Ant.";
+
+  botonSiguiente.setAttribute("id", "preguntaSiguiente");
+  botonSiguiente.textContent = "Sig.";
+
+  // Ocultamos los botones para que no salgan nada más cargar las páginas;
+  botonAnterior.style.display = "none";
+  botonSiguiente.style.display = "none";
+
+  //Añadimos los botones antes y despues de la tabla;
+  tabla.before(botonAnterior);
+  tabla.after(botonSiguiente);
+
+
+  // Creamos el select con las opciones que son las categorias;
+  if (listaCategorias.length > 0) {
+    let opcionEnBlanco = document.createElement("option");
+    opcionEnBlanco.setAttribute("value", "...");
+    opcionEnBlanco.textContent = "...";
+    document.getElementsByTagName("select")[0].append(opcionEnBlanco); //Declaramos u espacio en blanco para que no coja la primera categoria por defectoy haya que dar 2 clicks
+    for (let i = 0; i < listaCategorias.length; i++) {
+      let opcionCategorias = document.createElement("option");
+      opcionCategorias.setAttribute("value", listaCategorias[i]);
+      opcionCategorias.textContent = listaCategorias[i];
+      document.getElementsByTagName("select")[0].append(opcionCategorias);
     }
+  } else { // En caso de no haber categorias, saldrá la opcion de que no hay categorias;
+    let noCategorias = this.document.createElement("option");
+    noCategorias.setAttribute("value", "No hay categorias disponibles");
+    document.getElementsByTagName("select")[0].append(noCategorias);
+  }
 
-    let formPreguntas = document.getElementById("preguntas")
-    let tabla = document.createElement("table");
-    tabla.setAttribute("id", "tablaPreguntas")
-    formPreguntas.append(tabla);
+  // Listener para actualizar en el momento que se cambie la categoria;
+  document.getElementsByTagName("select")[0].addEventListener("input", function () {
+    //Mostramos los botones al elegir una categoria;
+      botonAnterior.style.display = "block";
+      botonSiguiente.style.display = "block";
+      // Conseguimos la categoria que ha sido elegida
+      let categoriaSeleccionada =
+        document.getElementsByTagName("select")[0].value;
+      preguntasDeCategoria = []; // Limpiamos el array por si se cambia de categoria;
+      num = 0; // Ponemos indice 0 por si se ha cambiado de categoria;
 
-    let botonAnterior = this.document.createElement("button")
-    let botonSiguiente = this.document.createElement("button")
+      // Metemos todas las preguntas de la categoria seleccionada en un array creado con las preguntas de la categoria seleccionada;
+      for (let i = 0; i < listaPreguntas.length; i++) {
+        if (listaPreguntas[i].categoria === categoriaSeleccionada) {
+          preguntasDeCategoria.push(listaPreguntas[i]);
+        }
+      }
 
-    botonAnterior.setAttribute("id", "preguntaAnterior");
-    botonAnterior.textContent = "Anterior"
+      // Si existe alguna pregunta de la categoria seleccionada, llama a la funcion que escribe la pregunta;
+      if (preguntasDeCategoria.length > 0) {
+        mostrarPregunta(num);
+      } else { // Si no hay preguntas de esa categoria muestra un mensaje;
+        let advertencia = this.document.createElement("p");
+        advertencia.textContent =
+          "Aún no existen preguntas de esta categoría :(";
+        this.document.getElementById("preguntas").append(advertencia);
+      }
+    });
 
-    botonSiguiente.setAttribute("id", "preguntaSiguiente");
-    botonSiguiente.textContent = "Siguiente"
+    //Función para escribir las preguntas
+  function mostrarPregunta(numero) {
+    tabla.innerHTML = ""; // Limpiamos la tabla cada vez que se muestre una pregunta
 
-    tabla.before(botonAnterior);
-    tabla.after(botonSiguiente);
+    // Declaramos una fila para el enunciado, otra para la respuesta coorecta y otras 2 para las incorrectas;
+    let filaEnunciado = document.createElement("tr");
 
-    // Listener para actualizar en el momento que se cambie la categoria
-    document.getElementsByTagName('select')[0].addEventListener('input', function () {
+    // Crear y añadir el texto de la pregunta
+    let pregunta = document.createElement("p");
+    pregunta.textContent = preguntasDeCategoria[numero].enunciado;
+    filaEnunciado.append(pregunta);
 
-        let categoriaSeleccionada = document.getElementsByTagName('select')[0].value;
-        console.log(categoriaSeleccionada)
-        preguntasDeCategoria = [];
+    let filaRespuestaCorrecta = document.createElement("tr");
+
+    // Crear y añadir opción correcta
+    let opcionCorrecta = document.createElement("input");
+    opcionCorrecta.setAttribute("type", "checkbox");
+    opcionCorrecta.checked = "true";
+    opcionCorrecta.setAttribute("id", "opcionCorrecta" + numero);
+    let labelCorrecta = document.createElement("label");
+    labelCorrecta.setAttribute("for", "opcionCorrecta" + numero);
+    labelCorrecta.textContent = preguntasDeCategoria[numero].respuestaCorrecta;
+
+    filaRespuestaCorrecta.append(opcionCorrecta, labelCorrecta);
+
+    let filaRespuestaIncorrecta1 = document.createElement("tr");
+
+    // Crear y añadir primera opción incorrecta
+    let opcionIncorrecta1 = document.createElement("input");
+    opcionIncorrecta1.setAttribute("type", "checkbox");
+    opcionIncorrecta1.setAttribute("id", "opcionIncorrecta1_" + numero);
+    let labelIncorrecta1 = document.createElement("label");
+    labelIncorrecta1.setAttribute("for", "opcionIncorrecta1_" + numero);
+    labelIncorrecta1.textContent = preguntasDeCategoria[numero].respuestaIncorrecta1;
+
+    filaRespuestaIncorrecta1.append(opcionIncorrecta1, labelIncorrecta1);
+
+    let filaRespuestaIncorrecta2 = document.createElement("tr");
+
+    // Crear y añadir segunda opción incorrecta
+    let opcionIncorrecta2 = document.createElement("input");
+    opcionIncorrecta2.setAttribute("type", "checkbox");
+    opcionIncorrecta2.setAttribute("id", "opcionIncorrecta2_" + numero);
+    let labelIncorrecta2 = document.createElement("label");
+    labelIncorrecta2.setAttribute("for", "opcionIncorrecta2_" + numero);
+    labelIncorrecta2.textContent = preguntasDeCategoria[numero].respuestaIncorrecta2;
+
+    filaRespuestaIncorrecta2.append(opcionIncorrecta2, labelIncorrecta2);
+
+    // Añadimos la informacion en la tabla
+    tabla.append(filaEnunciado, filaRespuestaCorrecta, filaRespuestaIncorrecta1, filaRespuestaIncorrecta2);
+  }
+
+  // Función para pasar a la siguiente pregunta, en este caso utilizando un indice;
+  this.document.getElementById("preguntaSiguiente").addEventListener("click", function () {
+      if (num < preguntasDeCategoria.length - 1) {
+        num++;
+        mostrarPregunta(num);
+      } else {
         num = 0;
+        mostrarPregunta(num);
+      }
+    });
 
-        for (let i = 0; i < listaPreguntas.length; i++) {
-            if (listaPreguntas[i].categoria === categoriaSeleccionada) {
-                preguntasDeCategoria.push(listaPreguntas[i]);
-            }
-        }
+    // Función para pasar a la pregunta anterior, en este caso utilizando un indice;
+  this.document.getElementById("preguntaAnterior").addEventListener("click", function () {
+      if (num <= 0) {
+        num = preguntasDeCategoria.length - 1;
+        mostrarPregunta(num);
+      } else {
+        num--;
+        mostrarPregunta(num);
+      }
+    });
 
-        if (preguntasDeCategoria.length > 0) {
-            mostrarPregunta()
-        } else {
-            let advertencia = this.document.createElement('p');
-            advertencia.textContent = "Aún no existen preguntas de esta categoría :("
-
-            this.document.getElementById('preguntas').append(advertencia)
-        }
-    })
-
-    function mostrarPregunta() {
-
-        tabla.innerHTML = '';
-
-
-        let filaEnunciado = document.createElement("tr")
-
-
-        // Crear y añadir el texto de la pregunta
-        let pregunta = document.createElement('p');
-        pregunta.textContent = preguntasDeCategoria[num].enunciado;
-        filaEnunciado.append(pregunta);
-
-        let filaRespuestaCorrecta = document.createElement("tr")
-
-        // Crear y añadir opción correcta
-        let opcionCorrecta = document.createElement('input');
-        opcionCorrecta.setAttribute("type", "checkbox");
-        opcionCorrecta.setAttribute("id", "opcionCorrecta" + num);
-        let labelCorrecta = document.createElement("label");
-        labelCorrecta.setAttribute("for", "opcionCorrecta" + num);
-        labelCorrecta.textContent = preguntasDeCategoria[num].respuestaCorrecta;
-
-        filaRespuestaCorrecta.append(opcionCorrecta, labelCorrecta);
-
-
-        let filaRespuestaIncorrecta1 = document.createElement("tr")
-
-
-        // Crear y añadir primera opción incorrecta
-        let opcionIncorrecta1 = document.createElement('input');
-        opcionIncorrecta1.setAttribute("type", "checkbox");
-        opcionIncorrecta1.setAttribute("id", "opcionIncorrecta1_" + num);
-        let labelIncorrecta1 = document.createElement("label");
-        labelIncorrecta1.setAttribute("for", "opcionIncorrecta1_" + num);
-        labelIncorrecta1.textContent = preguntasDeCategoria[num].respuestaIncorrecta1;
-
-        filaRespuestaIncorrecta1.append(opcionIncorrecta1, labelIncorrecta1);
-
-        let filaRespuestaIncorrecta2 = document.createElement("tr")
-
-        // Crear y añadir segunda opción incorrecta
-        let opcionIncorrecta2 = document.createElement('input');
-        opcionIncorrecta2.setAttribute("type", "checkbox");
-        opcionIncorrecta2.setAttribute("id", "opcionIncorrecta2_" + num);
-        let labelIncorrecta2 = document.createElement("label");
-        labelIncorrecta2.setAttribute("for", "opcionIncorrecta2_" + num);
-        labelIncorrecta2.textContent = preguntasDeCategoria[num].respuestaIncorrecta2;
-
-        filaRespuestaIncorrecta2.append(opcionIncorrecta2, labelIncorrecta2);
-
-
-
-        tabla.append(filaEnunciado, filaRespuestaCorrecta, filaRespuestaIncorrecta1, filaRespuestaIncorrecta2);
-    }
-})
+    // Funcion para añadir la pregunta mostrada en un array de examenes
+  this.document.getElementById("anadir").addEventListener("click", function () {
+    examenes.push(preguntasDeCategoria[num]);
+  });
+    // Funcion para añadir el array del examen con las preguntas al localStorage
+  this.document.getElementById("terminar").addEventListener("click", function () {
+      let fechaExamen = document.getElementById("formExamen").firstElementChild.nextElementSibling.value;
+      let categoriaSeleccionada =document.getElementsByTagName("select")[0].value;
+      let examenNuevo = new Examen(numeroDeExamenes + 1,fechaExamen,categoriaSeleccionada);
+      examenes.push(examenNuevo);
+    });
+});

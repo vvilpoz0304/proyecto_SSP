@@ -34,6 +34,11 @@ window.addEventListener('DOMContentLoaded', function () {
         //Añadimos la pregunta al array
         listaPreguntas.push(pregunta);
 
+        let inputs = document.querySelectorAll("input");
+        inputs.forEach(input => {
+            input.value = "";
+        });
+
         //Actualizamos el local Storage
         localStorage.setItem('preguntas', JSON.stringify(listaPreguntas));
     });
