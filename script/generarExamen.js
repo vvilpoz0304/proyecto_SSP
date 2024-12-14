@@ -178,7 +178,7 @@
   // Funcion para añadir el array del examen con las preguntas al localStorage
   this.document.getElementById("terminar").addEventListener("click", function () {
     let numeroDeExamenes = listaExamenes.length;
-    let fechaExamen = document.getElementById("formExamen").firstElementChild.nextElementSibling.value;
+    let fechaExamen = document.getElementById("formExamen").firstElementChild.nextElementSibling.nextElementSibling.value;
     let categoriaSeleccionada = document.getElementsByTagName("select")[0].value;
     let examenNuevo = new Examen(numeroDeExamenes, fechaExamen, categoriaSeleccionada, preguntasDeExamen);
 

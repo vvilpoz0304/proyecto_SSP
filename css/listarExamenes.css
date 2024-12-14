@@ -1,0 +1,38 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+main{
+    background-color: aliceblue;
+    width: 75%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+table{
+    width: 75%;
+    height: 75%;
+}
+/* Estilo para la primera columna */
+table tr td:nth-child(1) {
+    background-color: lightblue;
+    width: 5%;
+    text-align: center;
+}
+
+/* Estilo para la segunda columna */
+table tr td:nth-child(2) {
+    background-color: lightgreen;
+    width: 85%;
+}
+
+/* Estilo para la tercera columna */
+table tr td:nth-child(3) {
+    background-color: lightcoral;
+}
+table tr td:nth-child(3) p {
+    margin: 0% 0% 10% 0%;
+}

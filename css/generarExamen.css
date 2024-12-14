@@ -9,10 +9,15 @@ header {
     width: 100%;
 }
 
+h2 {
+    padding: 0% 0% 4% 30%;
+    font-size: 40px;
+}
+
 input,
 select {
-    margin: 5% 0% 2% 0%;
-    width: 15%;
+    margin: 1% 0% 0% 3%;
+    width: 25%;
     border-radius: 5px;
     border: 1px solid gray
 }
@@ -26,20 +31,23 @@ main {
     background-color: rgb(240, 255, 241);
 }
 
+main p{
+    margin-top: 3%;
+}
 
 
 #formExamen {
     display: flex;
     flex-direction: column;
     width: 80%;
-    height: 80%;
+    height: 90%;
     margin-left: 5%;
 }
 
 #preguntas {
     height: 50%;
     border-radius: 20px;
-    margin: 5% 0% 0% 0%;
+    margin: 3% 0% 0% 0%;
     box-shadow: 1px 0px 20px 1px rgb(110, 141, 110);
     border: 1px solid white;
     background: linear-gradient(rgb(203, 241, 203), rgb(220, 245, 220), rgb(203, 241, 203));
@@ -50,7 +58,7 @@ main {
 }
 
 table {
-    width: 65%;
+    width: 60%;
     height: 100%;
     background: linear-gradient(rgb(220, 245, 220), rgb(187, 230, 187), rgb(220, 245, 220));
 }
@@ -58,20 +66,32 @@ table {
 table tr:first-of-type {
     font-size: 25px;
 }
-img{
+
+img {
     width: 80%;
     height: 80%;
 }
+
 #preguntaAnterior,
 #preguntaSiguiente {
-    width: 6%;
-    height: 20%;
+    width: 7%;
+    height: 18%;
     border-radius: 100%;
     box-shadow: 1px 0px 20px 1px rgb(110, 141, 110);
     font-size: 16px;
     border: none;
     background-color: rgb(155, 229, 155);
     margin: 0% 5% 0% 5%;
+    transition: ease-in .1s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#preguntaAnterior:hover,
+#preguntaSiguiente:hover {
+    background-color: rgb(128, 192, 128);
 }
 
 #anadir,
@@ -86,14 +106,19 @@ img{
     margin-left: 75%;
     transition: ease-in .2s;
 }
-#terminar{
-    background: linear-gradient(rgb(205, 207, 169), rgb(176, 179, 130), rgb(205, 207, 169));;
+
+#terminar {
+    background: linear-gradient(rgb(205, 207, 169), rgb(176, 179, 130), rgb(205, 207, 169));
+    ;
 }
-#anadir:hover{
-    background: linear-gradient(rgb(166, 201, 166), rgb(134, 158, 134),rgb(166, 201, 166));
+
+#anadir:hover {
+    background: linear-gradient(rgb(166, 201, 166), rgb(134, 158, 134), rgb(166, 201, 166));
     box-shadow: 2px 1px 25px 3px rgb(84, 110, 84);
 }
-#terminar:hover{
-    background: linear-gradient(rgb(214, 218, 125), rgb(149, 155, 82), rgb(214, 218, 125));;
+
+#terminar:hover {
+    background: linear-gradient(rgb(214, 218, 125), rgb(149, 155, 82), rgb(214, 218, 125));
+    ;
     box-shadow: 2px 1px 25px 3px rgb(84, 110, 84);
 }
