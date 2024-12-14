@@ -33,4 +33,5 @@ div p{
     height: 90%;
     background-color: rgb(78, 105, 78);
     color: white;
+    border: 1px solid white;
 }

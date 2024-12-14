@@ -1,52 +1,99 @@
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
 }
-header{
+
+header {
     width: 100%;
 }
-main{
+
+input,
+select {
+    margin: 5% 0% 2% 0%;
+    width: 15%;
+    border-radius: 5px;
+    border: 1px solid gray
+}
+
+main {
     width: 50%;
     height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aliceblue;
+    background-color: rgb(240, 255, 241);
 }
-#formExamen{
-    width: 80%;
-    height: 80%;
+
+
+
+#formExamen {
     display: flex;
     flex-direction: column;
+    width: 80%;
+    height: 80%;
     margin-left: 5%;
 }
-input, select{
-    width: 25%;
-}
+
 #preguntas {
-    border: 1px solid black;
-    margin: 15% 0% 0% 0%;
-    text-align: center;
+    height: 50%;
+    border-radius: 20px;
+    margin: 5% 0% 0% 0%;
+    box-shadow: 1px 0px 20px 1px rgb(110, 141, 110);
+    border: 1px solid white;
+    background: linear-gradient(rgb(203, 241, 203), rgb(220, 245, 220), rgb(203, 241, 203));
     display: flex;
     flex-direction: row;
-    height: 50%;
+    align-items: center;
+    justify-content: center;
 }
-table{
+
+table {
     width: 65%;
+    height: 100%;
+    background: linear-gradient(rgb(220, 245, 220), rgb(187, 230, 187), rgb(220, 245, 220));
 }
-table tr:first-of-type{
+
+table tr:first-of-type {
     font-size: 25px;
 }
-#preguntaAnterior, #preguntaSiguiente {
-    width: 7%;
-    height: 15%;
+img{
+    width: 80%;
+    height: 80%;
+}
+#preguntaAnterior,
+#preguntaSiguiente {
+    width: 6%;
+    height: 20%;
     border-radius: 100%;
+    box-shadow: 1px 0px 20px 1px rgb(110, 141, 110);
     font-size: 16px;
     border: none;
-    background-color: green;
-    margin: 15% 5% 0% 5%;
+    background-color: rgb(155, 229, 155);
+    margin: 0% 5% 0% 5%;
 }
-#anadir{
+
+#anadir,
+#terminar {
     margin-top: 5%;
+    border: 1px solid white;
+    background: linear-gradient(rgb(203, 241, 203), rgb(220, 245, 220), rgb(187, 230, 187));
+    box-shadow: 1px 0px 20px 1px rgb(110, 141, 110);
+    border-radius: 10px;
+    width: 20%;
+    height: 8%;
+    margin-left: 75%;
+    transition: ease-in .2s;
+}
+#terminar{
+    background: linear-gradient(rgb(205, 207, 169), rgb(176, 179, 130), rgb(205, 207, 169));;
+}
+#anadir:hover{
+    background: linear-gradient(rgb(166, 201, 166), rgb(134, 158, 134),rgb(166, 201, 166));
+    box-shadow: 2px 1px 25px 3px rgb(84, 110, 84);
+}
+#terminar:hover{
+    background: linear-gradient(rgb(214, 218, 125), rgb(149, 155, 82), rgb(214, 218, 125));;
+    box-shadow: 2px 1px 25px 3px rgb(84, 110, 84);
 }

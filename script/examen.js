@@ -1,9 +1,9 @@
 class Examen{
-    constructor(numeroExamen, usuario, fecha, categoria){
+    constructor(numeroExamen, fecha, categoria, preguntas){
         this.numeroExamen = numeroExamen;
-        this.usuario = usuario;
         this.fecha = fecha;
         this.categoria = categoria;
+        this.preguntas = preguntas;
         
     }
 }
