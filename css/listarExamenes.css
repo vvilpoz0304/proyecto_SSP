@@ -1,38 +1,106 @@
+/* General */
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     box-sizing: border-box;
 }
-main{
+
+/* Lista */
+#lista {
     background-color: aliceblue;
     width: 75%;
     height: 80%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-table{
+
+#lista div {
+    width: 100%;
+    height: 80%;
+}
+
+select {
+    margin-bottom: 3%;
+}
+
+/* Tabla en Lista */
+#lista table {
+    margin: 0% 0% 0% 15%;
     width: 75%;
     height: 75%;
 }
-/* Estilo para la primera columna */
+
+/* Estilos de columnas en Lista */
 table tr td:nth-child(1) {
     background-color: lightblue;
     width: 5%;
     text-align: center;
 }
 
-/* Estilo para la segunda columna */
 table tr td:nth-child(2) {
     background-color: lightgreen;
+    width: 10%;
     width: 85%;
 }
 
-/* Estilo para la tercera columna */
 table tr td:nth-child(3) {
     background-color: lightcoral;
 }
+
 table tr td:nth-child(3) p {
     margin: 0% 0% 10% 0%;
+}
+
+/* Examen */
+#examen {
+    text-align: center;
+    background-color: aliceblue;
+    width: 75%;
+    height: 90%;
+    display: flex;
+    flex-direction: column; /* Solo esta línea es necesaria, eliminando redundancia */
+    justify-content: center;
+    align-items: center;
+}
+
+#examen div {
+    width: 83%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    flex-direction: row;
+}
+
+#examen table {
+    background-color: wheat;
+    width: 50%;
+    height: 75%;
+}
+
+/* Botones de navegación */
+#preguntaAnterior,
+#preguntaSiguiente {
+    width: 5%;
+    height: 10%;
+    border-radius: 100%;
+    box-shadow: 1px 0px 20px 1px rgb(110, 141, 110);
+    font-size: 16px;
+    border: none;
+    background-color: rgb(155, 229, 155);
+    margin: 18% 8% 0% 13%;
+    transition: ease-in .1s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#preguntaAnterior:hover,
+#preguntaSiguiente:hover {
+    background-color: rgb(128, 192, 128);
 }

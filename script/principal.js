@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", function () {
     mostrarAdmin();
   } else if(rolLogueado == "profesor"){
     mostrarProfe();
-  } else if(rolLogueado == "alumno"){
+  } else if(rolLogueado == "estudiante"){
     mostrarAlumno();
   }
 
