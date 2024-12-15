@@ -3,12 +3,13 @@ window.addEventListener("DOMContentLoaded", function () {
     let listaExamenes = JSON.parse(this.localStorage.getItem("examenes"))
     let listaCategorias = JSON.parse(localStorage.getItem("categorias")) || [];
     let examenesPorCategoria = [];
-    let fechaHoy = new Date();
+    let fechaHoy = new Date(); 
     let num;
 
     let respuestasCorrectas = 0;
     let respuestasIncorrectas = 0;
     let noContestadas = 0;
+
 
     //Filtramos la lista de examenes por los examenes que tengan la fecha de hoy en adelante;
     listaExamenes = listaExamenes.filter(examen => new Date(examen.fecha) >= new Date(fechaHoy));
@@ -222,11 +223,30 @@ window.addEventListener("DOMContentLoaded", function () {
         document.getElementById("comprobar").style.display = "none";
     });
 
-    this.document.getElementById("terminar").addEventListener("click", function () {
-        let terminarAntes = examenesPorCategoria.length - (respuestasCorrectas+respuestasIncorrectas+noContestadas);
+    let listaIntentos = JSON.parse(localStorage.getItem("intentos")) || [];
 
-        //let nota = ;
-        let intento = new Intento()
-        console.log(respuestasCorrectas, respuestasIncorrectas, noContestadas, terminarAntes);
+    this.document.getElementById("terminar").addEventListener("click", function () {
+
+        let confirmacion = confirm("¿Está seguro que desea terminar su intento? (Su nota se guardará automáticamente y las preguntas no contestadas se darán por incorrectas)");
+
+        if (confirmacion == true) {
+            let fechaRealizacion = new Date().toLocaleDateString('es-ES')
+            let totalPreguntas = examenesPorCategoria.length;
+            let nota = ((respuestasCorrectas / totalPreguntas) * 10) / 2;
+
+            let numIntento = 1;
+
+            for (let i = 0; i < listaIntentos.length; i++) {
+                if (listaIntentos[i].usuario == localStorage.getItem("usuario") && listaIntentos[i].examen == num) {
+                    numIntento = listaIntentos[i].numeroIntentos + 1;
+                }
+            }
+            let intento = new Intento(localStorage.getItem("usuario"), num, nota.toFixed(2), numIntento, fechaRealizacion);
+
+            listaIntentos.push(intento);
+            localStorage.setItem("intentos", JSON.stringify(listaIntentos));
+
+            window.location.reload();
+        }
     })
 })

@@ -1,0 +1,37 @@
+main{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main p{
+    font: larger bolder;
+
+}
+.contenedorTabla{
+    background-color: rgb(168, 199, 137);
+}
+.contenedorTabla {
+    max-height: 100%; /* Aumenta la altura máxima */
+    max-width: 80%; /* Aumenta el ancho máximo */
+    width: 90%; /* Establece un ancho fijo si lo prefieres */
+    height: 90%; /* Ajusta automáticamente según el contenido */
+    overflow-y: auto; /* Habilita scroll vertical */
+    overflow-x: auto; /* Habilita scroll horizontal si es necesario */
+    border: 1px solid #ccc; /* Mantén el borde si lo necesitas */
+    margin-top: 1rem; /* Espaciado con el contenido anterior */
+}
+img{
+    width: 15%;
+    height: 20%;
+}
+table{
+    text-align: center;
+    width: 95%;
+}
+th{
+    font-size: larger;
+}
+table p{
+   margin-top: 3%; 
+}

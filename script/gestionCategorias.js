@@ -7,16 +7,25 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
   // DEclaramos la tabla y la añadimos en el html;
-  let tabla = this.document.createElement("table");
-  document.getElementById("listadoCategorias").after(tabla);
+  // Crear el contenedor para la tabla
+  let tablaContainer = document.createElement("div");
+  tablaContainer.classList.add("table-container");
 
-    //Recorremos el array del LocalStorage para ir escribiendolos en la tabla
+  // Crear la tabla y añadirla al contenedor
+  let tabla = this.document.createElement("table");
+  tablaContainer.appendChild(tabla);
+
+  // Añadir el contenedor de la tabla después del listado de categorías
+  document.getElementById("listadoCategorias").after(tablaContainer);
+
+
+  //Recorremos el array del LocalStorage para ir escribiendolos en la tabla
   for (let i = 0; i < listaCategorias.length; i++) {
     let fila = this.document.createElement("tr");
 
     let columnaCategoria = this.document.createElement("td");
     let nombreCategoria = this.document.createElement("input");
-    nombreCategoria.setAttribute("id", "nombreCategoria"+i)
+    nombreCategoria.setAttribute("id", "nombreCategoria" + i)
     nombreCategoria.setAttribute("type", "text");
     nombreCategoria.value = listaCategorias[i];
     columnaCategoria.append(nombreCategoria);
@@ -52,25 +61,25 @@ window.addEventListener("DOMContentLoaded", function () {
 
   //Funcion para borrar registros de categorias.
   this.document.getElementsByTagName("main")[0].addEventListener("click", function (event) {
-      if (event.target.classList.contains("eliminar")) {
-        let nombreCategoria = event.target.getAttribute("id");
-        listaCategorias.splice(nombreCategoria, 1);
-        localStorage.setItem("categorias", JSON.stringify(listaCategorias));
-        window.location.reload();
-      }
-    });
+    if (event.target.classList.contains("eliminar")) {
+      let nombreCategoria = event.target.getAttribute("id");
+      listaCategorias.splice(nombreCategoria, 1);
+      localStorage.setItem("categorias", JSON.stringify(listaCategorias));
+      window.location.reload();
+    }
+  });
 
-    this.document.getElementById('save').addEventListener('click', function () {
-      for (let i = 0; i < listaCategorias.length; i++) {
+  this.document.getElementById('save').addEventListener('click', function () {
+    for (let i = 0; i < listaCategorias.length; i++) {
 
-          //Conseguimos los datos  que han sido cambiados;
-          let categoriaNueva = document.getElementById('nombreCategoria' + i).value;
-          
-          // Actualizamos el array del localStorage;
-          listaCategorias[i] = categoriaNueva;
+      //Conseguimos los datos  que han sido cambiados;
+      let categoriaNueva = document.getElementById('nombreCategoria' + i).value;
 
-          localStorage.setItem('categorias', JSON.stringify(listaCategorias));
+      // Actualizamos el array del localStorage;
+      listaCategorias[i] = categoriaNueva;
 
-      }
-    });
+      localStorage.setItem('categorias', JSON.stringify(listaCategorias));
+
+    }
+  });
 });
