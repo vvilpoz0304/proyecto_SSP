@@ -6,6 +6,10 @@ window.addEventListener("DOMContentLoaded", function () {
     let fechaHoy = new Date();
     let num;
 
+    let respuestasCorrectas = 0;
+    let respuestasIncorrectas = 0;
+    let noContestadas = 0;
+
     //Filtramos la lista de examenes por los examenes que tengan la fecha de hoy en adelante;
     listaExamenes = listaExamenes.filter(examen => new Date(examen.fecha) >= new Date(fechaHoy));
 
@@ -161,42 +165,6 @@ window.addEventListener("DOMContentLoaded", function () {
         document.getElementsByTagName("table")[0].style.margin = "0% 0% 0% 35%"
     }
 
-    document.getElementById("comprobar").addEventListener("click", function () {
-        // Obtener la respuesta seleccionada
-        let respuestaSeleccionada = document.querySelector(`input[name="pregunta${numeroPregunta}"]:checked`);
-        
-        // Obtener todas las respuestas no seleccionadas
-        let respuestasNoSeleccionadas = document.querySelectorAll(`input[name="pregunta${numeroPregunta}"]:not(:checked)`);
-    
-        if (!respuestaSeleccionada) {
-            console.error("No has seleccionado ninguna respuesta.");
-            alert("Por favor, selecciona una respuesta antes de comprobar.");
-            return;
-        }
-    
-        // Cambiar el color del texto del label
-        if (respuestaSeleccionada.value === "correcta") {
-            // Cambiar el color del label de la respuesta seleccionada a verde
-            respuestaSeleccionada.nextElementSibling.style.color = "green";
-        } else {
-            // Cambiar el color del label de la respuesta seleccionada a rojo
-            respuestaSeleccionada.nextElementSibling.style.color = "red";
-    
-            // Cambiar el color de los labels de las respuestas correctas
-            respuestasNoSeleccionadas.forEach(respuesta => {
-                if (respuesta.value === "correcta") {
-                    respuesta.nextElementSibling.style.color = "green";
-                } else {
-                    respuesta.nextElementSibling.style.color = "red";
-                }
-            });
-        }
-    
-        document.getElementById("comprobar").style.display = "none";
-    });
-    
-    
-
     document.getElementById("preguntaSiguiente").addEventListener("click", function () {
         numeroPregunta++;
         document.getElementById("comprobar").style.display = "block";
@@ -213,6 +181,52 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    document.getElementById("comprobar").addEventListener("click", function () {
+        // Obtener la respuesta seleccionada
+        let respuestaSeleccionada = document.querySelector(`input[name="pregunta${numeroPregunta}"]:checked`);
 
+        // Obtener todas las respuestas no seleccionadas
+        let respuestasNoSeleccionadas = document.querySelectorAll(`input[name="pregunta${numeroPregunta}"]:not(:checked)`);
 
+        if (!respuestaSeleccionada) {
+            noContestadas++;
+            respuestasNoSeleccionadas.forEach(respuesta => {
+                if (respuesta.value === "correcta") {
+                    respuesta.nextElementSibling.style.color = "green";
+                } else {
+                    respuesta.nextElementSibling.style.color = "red";
+                }
+            });
+        } else {
+            // Cambiar el color del texto del label
+            if (respuestaSeleccionada.value === "correcta") {
+                // Cambiar el color del label de la respuesta seleccionada a verde
+                respuestaSeleccionada.nextElementSibling.style.color = "green";
+                respuestasCorrectas++;
+            } else {
+                respuestasIncorrectas++;
+                // Cambiar el color del label de la respuesta seleccionada a rojo
+                respuestaSeleccionada.nextElementSibling.style.color = "red";
+
+                // Cambiar el color de los labels de las respuestas correctas
+                respuestasNoSeleccionadas.forEach(respuesta => {
+                    if (respuesta.value === "correcta") {
+                        respuesta.nextElementSibling.style.color = "green";
+                    } else {
+                        respuesta.nextElementSibling.style.color = "red";
+                    }
+                });
+            }
+        }
+
+        document.getElementById("comprobar").style.display = "none";
+    });
+
+    this.document.getElementById("terminar").addEventListener("click", function () {
+        let terminarAntes = examenesPorCategoria.length - (respuestasCorrectas+respuestasIncorrectas+noContestadas);
+
+        //let nota = ;
+        let intento = new Intento()
+        console.log(respuestasCorrectas, respuestasIncorrectas, noContestadas, terminarAntes);
+    })
 })
