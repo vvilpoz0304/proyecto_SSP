@@ -1,12 +1,13 @@
 window.addEventListener("DOMContentLoaded", function () {
+  // Conseguimos el array de categorias;
   let listaCategorias = JSON.parse(localStorage.getItem("categorias")) || [];
 
-  //Si el array del local Storage está vacio añadimos el array al localStorage
+  //Si el array del local Storage está vacio añadimos el array al localStorage;
   if (listaCategorias.length === 0) {
     localStorage.setItem("categorias", JSON.stringify(listaCategorias));
   }
 
-  // DEclaramos la tabla y la añadimos en el html;
+  // eEclaramos la tabla y la añadimos en el html;
   // Crear el contenedor para la tabla
   let tablaContainer = document.createElement("div");
   tablaContainer.classList.add("table-container");
@@ -26,6 +27,7 @@ window.addEventListener("DOMContentLoaded", function () {
     let columnaCategoria = this.document.createElement("td");
     let nombreCategoria = this.document.createElement("input");
     nombreCategoria.setAttribute("id", "nombreCategoria" + i)
+    nombreCategoria.setAttribute("readonly", "true");
     nombreCategoria.setAttribute("type", "text");
     nombreCategoria.value = listaCategorias[i];
     columnaCategoria.append(nombreCategoria);
@@ -43,6 +45,7 @@ window.addEventListener("DOMContentLoaded", function () {
     fila.append(columnaBorrar);
     this.document.getElementsByTagName("table")[0].append(fila);
   }
+  // Boton para guardar los cambios
   let botonGuardar = this.document.createElement("button");
   botonGuardar.setAttribute("id", "save");
   botonGuardar.textContent = "Guardar Cambios";

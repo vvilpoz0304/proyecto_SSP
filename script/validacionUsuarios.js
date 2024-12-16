@@ -3,14 +3,11 @@ window.addEventListener("DOMContentLoaded", function () {
     let listaUsuarios = JSON.parse(localStorage.getItem("usuariosValidados"));
 
     let divRegistro = document.getElementById("registro");
-    //    alert(listaUsuarios[0])
 
     // Creamos esta función para escribir los datos del registro en una tabla con todos los datos;
     function escribirDatos() {
         for (let i = 1; i < listaUsuarios.length; i++) {
             let fila = document.createElement('tr'); // Creamos la fila por cada nuevo Usuario;
-
-            //Columna para el checkbox (Validado/No Validado)
 
             // Creamos la columna para el boton on/off del checkbox
             let columnaCheckbox = document.createElement('td');
@@ -32,7 +29,7 @@ window.addEventListener("DOMContentLoaded", function () {
             // Creamos columna con los inputs para los nombres (inputs editables para editar la información);
             let columnaNombre = document.createElement('td');
             let registroNombre = document.createElement('input');
-            registroNombre.setAttribute('id', 'nombreUsuario' + i);
+            registroNombre.setAttribute("readonly", "true");
             registroNombre.value = listaUsuarios[i].nombre;
             columnaNombre.append(registroNombre);
             fila.append(columnaNombre);
@@ -61,6 +58,7 @@ window.addEventListener("DOMContentLoaded", function () {
             columnaRol.append(registroRol);
             fila.append(columnaRol);
 
+            // Creamos la columna donde va el botón de borrar;
             let columnaBorrar = document.createElement('td');
             let botonEliminar = document.createElement('button');
             let icono = document.createElement('img');
@@ -74,7 +72,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
 
 
-
+            // Añadimos la fila a la tabla
             document.getElementById('registro').lastElementChild.append(fila);
         }
     }
@@ -84,14 +82,14 @@ window.addEventListener("DOMContentLoaded", function () {
         for (let i = 1; i < listaUsuarios.length; i++) {
             //Conseguimos los datos  que han sido cambiados;
             let validadoNuevo = document.getElementById('usuarioValidado' + i).checked;
-            let nombreNuevo = document.getElementById('nombreUsuario' + i).value;
+            let nombreUsuario = listaUsuarios[i].nombre
             let contrasenaNueva = document.getElementById('contrasenaUsuario' + i).value;
             let rolNuevo = document.getElementById('rolUsuario' + i).value;
 
             // Actualizamos el array del localStorage;
             listaUsuarios[i] = {
                 validado: validadoNuevo,
-                nombre: nombreNuevo,
+                nombre: nombreUsuario,
                 contrasena: contrasenaNueva,
                 rol: rolNuevo
             };
@@ -99,6 +97,7 @@ window.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem('usuariosValidados', JSON.stringify(listaUsuarios));
 
         }
+        // Mostramos un mensaje de éxito;
         let mensajeExito = document.createElement('p');
         mensajeExito.setAttribute('class', 'exito');
         mensajeExito.textContent = "Los datos han sido actualizado correctamente. =D";
@@ -106,8 +105,10 @@ window.addEventListener("DOMContentLoaded", function () {
         document.getElementsByTagName('main')[0].firstElementChild.nextElementSibling.after(mensajeExito);
     })
 
-    escribirDatos();
+    escribirDatos(); // LLamamos a la función para escribir los datos;
 
+    // Le añadimos funcionalidad al botón de eliminar, para ello le añado el listener a todo el div pero el evento solo 
+    // se realizará en caso de hacer click a algún elemento con la clase "eliminar"
     this.document.getElementById('registro').addEventListener('click', function (event) {
         if (event.target.classList.contains('eliminar')) {
             let numeroUsuario = event.target.getAttribute('id');
@@ -117,7 +118,4 @@ window.addEventListener("DOMContentLoaded", function () {
 
         }
     })
-
-
-
 })

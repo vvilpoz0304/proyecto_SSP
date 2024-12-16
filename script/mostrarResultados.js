@@ -35,9 +35,9 @@ window.addEventListener("DOMContentLoaded", function () {
             let img = document.createElement("img");
             img.setAttribute("src", "images/noResults.png");
             let p = document.createElement("p");
-            p.textContent = "Lo sentimos, aún no hay resultados para mostrar. =("
+            p.textContent = "Aún no has realizado ningún examen. =("
             document.getElementsByTagName("main")[0].append(img);
-            document.getElementsByTagName("img")[0].after(p);
+            document.getElementsByTagName("div")[0].nextElementSibling.after(p);
         } else {
             // Si existen resultados, creará la tabla con el encabezado donde escribiremos el usuario
             // el numero de examen, el numero de intentos, la fecha que realizó el examen, y la nota conseguida;
@@ -87,6 +87,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
                 fila.append(columnaUsuario, columnaExamen, columnaIntento, columnaFecha, columnaNota)
                 tabla.append(fila);
+                if(listaResultados[i].nota >= 5){
+                    columnaNota.style.backgroundColor = "green";
+                } else columnaNota.style.backgroundColor = "crimson";
             }
             document.getElementsByClassName("contenedorTabla")[0].append(tabla);
         }
@@ -118,7 +121,7 @@ window.addEventListener("DOMContentLoaded", function () {
             let p = document.createElement("p");
             p.textContent = "Aún no has realizado ningún examen. =("
             document.getElementsByTagName("main")[0].append(img);
-            document.getElementsByTagName("img")[0].after(p);
+            document.getElementsByTagName("div")[0].nextElementSibling.after(p);
         } else {
             let tabla = document.createElement("table");
             let filaCabecera = document.createElement("tr");
@@ -162,10 +165,14 @@ window.addEventListener("DOMContentLoaded", function () {
                 let columnaNota = document.createElement("td");
                 let nota = document.createElement("p");
                 nota.textContent = listaFiltrada[i].nota;
+                
                 columnaNota.append(nota);
 
                 fila.append(columnaUsuario, columnaExamen, columnaIntento, columnaFecha, columnaNota)
                 tabla.append(fila);
+                if(listaResultados[i].nota >= 5.00){
+                    columnaNota.style.backgroundColor = "green";
+                } else columnaNota.style.backgroundColor = "crimson";
             }
             document.getElementsByClassName("contenedorTabla")[0].append(tabla);
         }

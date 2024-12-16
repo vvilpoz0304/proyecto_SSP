@@ -1,6 +1,12 @@
 body{
     background-color: rgb(197, 221, 197);
 }
+h2{
+    text-align: center;
+    width: 100%;
+    background-color: rgb(163, 190, 163);
+    padding: 1% 0% 1% 0%;
+}
 main{
     height: 76%;
     margin-top: 2%;

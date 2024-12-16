@@ -94,7 +94,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
   this.document
     .getElementById("registrarse")
-    .addEventListener("submit", function () {
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
       listaUsuarios();
       let lista = JSON.parse(localStorage.getItem("usuariosValidados"));
 
@@ -104,32 +105,34 @@ window.addEventListener("DOMContentLoaded", function () {
 
       if (mensajeContrasena == null) {
         mensajeContrasena = document.createElement("p");
-        let p = document
-          .querySelector("#registrarse")
-          .getElementsByTagName("p");
+        let p = document.querySelector("#registrarse").getElementsByTagName("p");
         p.id = "mensaje";
       }
 
-      //if (validarContrasena(contrasenaNueva)) {
-      if (nombreNuevo == null || nombreNuevo == "" || contrasenaNueva == null || contrasenaNueva == "") {
-        let mensajeError = document.createElement('p');
-        mensajeError.textContent = "Los campos no pueden estar vacios."
-        mensajeError.style.color = 'red';
-        document.getElementById('registrarse').lastElementChild.after(mensajeError);
+      if (validarContrasena(contrasenaNueva)) {
+        if (nombreNuevo == null || nombreNuevo == "" || contrasenaNueva == null || contrasenaNueva == "") {
+          let mensajeError = document.createElement('p');
+          mensajeError.textContent = "Los campos no pueden estar vacios."
+          mensajeError.style.color = 'red';
+          document.getElementById('registrarse').lastElementChild.after(mensajeError);
+        } else {
+          let nuevoUsuario = new Usuario();
+          nuevoUsuario.setUsuario(nombreNuevo, contrasenaNueva, rolNuevo, false);
+          lista.push(nuevoUsuario);
+          localStorage.setItem("usuariosValidados", JSON.stringify(lista));
+
+          document.getElementById("nombre").value = "";
+          document.getElementById("contrasenaRegistro").value = "";
+
+        }
+
       } else {
-        let nuevoUsuario = new Usuario();
-        nuevoUsuario.setUsuario(nombreNuevo, contrasenaNueva, rolNuevo, false);
-        lista.push(nuevoUsuario);
-        localStorage.setItem("usuariosValidados", JSON.stringify(lista));
-      }
-      /*
-    } else{
         mensajeContrasena.innerHTML = `La contraseña debe tener entre 8 y 16 caracteres, mayus, minus y símbolos`;
-      mensajeContrasena.style.color = "red";
-      document.getElementById("registrarse").append(mensajeContrasena);
-      console.log(mensajeContrasena);
+        mensajeContrasena.style.color = "red";
+        document.getElementById("registrarse").append(mensajeContrasena);
+        console.log(mensajeContrasena);
       }
-      */
+
     });
 
   function validarContrasena(contrasenaUsuario) {

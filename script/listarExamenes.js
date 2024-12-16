@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", function () {
     let listaExamenes = JSON.parse(this.localStorage.getItem("examenes"))
     let listaCategorias = JSON.parse(localStorage.getItem("categorias")) || [];
     let examenesPorCategoria = [];
-    let fechaHoy = new Date(); 
+    let fechaHoy = new Date();
     let num;
 
     let respuestasCorrectas = 0;
@@ -18,9 +18,7 @@ window.addEventListener("DOMContentLoaded", function () {
     //// Para mostrar la lista de examenes ////
     ///////////////////////////////////////////
 
-    console.log(listaExamenes)
     //Añadimos las categorias a filtrar
-
     if (listaCategorias.length > 0) {
         let opcionEnBlanco = document.createElement("option");
         opcionEnBlanco.setAttribute("value", "...");
@@ -38,74 +36,112 @@ window.addEventListener("DOMContentLoaded", function () {
         document.getElementsByTagName("select")[0].append(noCategorias);
     }
 
+    // Funcion para recoger las preguntas que se muestran según la categoria seleccionada;
     this.document.getElementsByTagName("select")[0].addEventListener("input", function () {
+        // Limpiar el área donde se mostrarán los exámenes
         document.getElementById("lista").firstElementChild.nextElementSibling.nextElementSibling.innerHTML = "";
+    
         let categoriaSeleccionada = document.getElementsByTagName("select")[0].value;
-        examenesPorCategoria = []
+        examenesPorCategoria = [];
+    
+        // Filtrar los exámenes según la categoría seleccionada
         for (let i = 0; i < listaExamenes.length; i++) {
             if (listaExamenes[i].categoria === categoriaSeleccionada) {
                 examenesPorCategoria.push(listaExamenes[i]);
             }
         }
-        mostrarListaExamenes(categoriaSeleccionada);
+    
+        // Llamar a la función para mostrar los exámenes filtrados, solo si hay resultados
+        if (examenesPorCategoria.length > 0) {
+            mostrarListaExamenes(); // Llamamos la función sin pasar el parámetro de categoría, ya que lo estamos gestionando dentro
+        } else {
+            document.getElementsByTagName("main")[0].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML = "";
+            let advertencia = document.getElementById("advertencia");
+          advertencia.style.fontWeight = "bolder";
+          advertencia.textContent = "Aún no existen examenes de esta categoría :(";
+          let imgError = document.createElement("img")
+          imgError.setAttribute("src", "images/noResults.png");
+          imgError.setAttribute("class", "error")
+          document.getElementsByTagName("main")[0].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.append(imgError);
+        }
     })
-
-    //  Función para mostrar la tabla con: el numero del examen, la categoria y el botón para realizarlo
-    function mostrarListaExamenes(categoria) {
+    
+    // Función para mostrar la tabla con los exámenes filtrados
+    function mostrarListaExamenes() {
+        document.getElementsByTagName("main")[0].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML = "";
+        // Crear la tabla
         let tabla = document.createElement("table");
-
+    
+        // Crear la fila de cabecera de la tabla
+        let filaCabecera = document.createElement("tr");
+    
+        let numeroCabecera = document.createElement("th");
+        numeroCabecera.append("Número de examen:");
+        
+        let categoriaCabecera = document.createElement("th");
+        categoriaCabecera.append("Categoria");
+        
+        let botonCabecera = document.createElement("th");
+        botonCabecera.append("Realizar");
+    
+        filaCabecera.append(numeroCabecera, categoriaCabecera, botonCabecera);
+        tabla.append(filaCabecera);  // Añadir la cabecera a la tabla
+    
+        // Bucle para crear las filas con los datos de los exámenes filtrados
         for (let i = 0; i < examenesPorCategoria.length; i++) {
             let fila = document.createElement("tr");
-
+    
             let columnaNumeroExamen = document.createElement("td");
             let numeroExamen = document.createElement("p");
             numeroExamen.textContent = examenesPorCategoria[i].numeroExamen;
-            columnaNumeroExamen.append(numeroExamen)
-
+            columnaNumeroExamen.append(numeroExamen);
+    
             let columnaCategoria = document.createElement("td");
-            let categoriaExamen = document.createElement("p")
+            let categoriaExamen = document.createElement("p");
             categoriaExamen.textContent = examenesPorCategoria[i].categoria;
             columnaCategoria.append(categoriaExamen);
-
+    
             let columnaBotones = document.createElement("td");
             let boton = document.createElement("button");
             let fecha = document.createElement("p");
             fecha.textContent = "Fecha Limite: " + examenesPorCategoria[i].fecha;
-            boton.setAttribute("class", "realizar")
-            boton.setAttribute("id", examenesPorCategoria[i].numeroExamen)
+            boton.setAttribute("class", "realizar");
+            boton.setAttribute("id", examenesPorCategoria[i].numeroExamen);
             boton.textContent = "Realizar Examen";
-            columnaBotones.append(fecha, boton)
-
+            columnaBotones.append(fecha, boton);
+    
             fila.append(columnaNumeroExamen, columnaCategoria, columnaBotones);
-            tabla.append(fila);
+            tabla.append(fila);  // Añadir la fila a la tabla
         }
-
-        document.getElementsByTagName("main")[0].firstElementChild.nextElementSibling.nextElementSibling.append(tabla)
+    
+        // Añadir la tabla al contenedor principal (donde se muestran los exámenes)
+        document.getElementsByTagName("main")[0].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.append(tabla);
+     
     }
 
-    mostrarListaExamenes();
 
-
+    // Funcion para realizar el examen seleccionado
     this.document.getElementsByTagName("main")[0].addEventListener("click", function (event) {
         if (event.target.classList.contains("realizar")) {
             num = event.target.id;
-            confirmar();
+            confirmar(); // Mensaje de confirmacion
         }
     })
     function confirmar() {
-        let conf = confirm("¿Seguro que desea realizar el examen? (Solo se permite un intento por alumno)");
-        if (conf == true) {
-            document.getElementById("lista").style.display = "none";
-            document.getElementById("examen").style.display = "flex";
+        let conf = confirm("¿Seguro que desea realizar el examen?");
+        if (conf) {
+            document.getElementById("lista").style.display = "none"; // Ocultamos la lista;
+            document.getElementById("examen").style.display = "flex"; // Mostramos la realizacion del examen seleccionado;
 
             // Reiniciamos el índice y mostramos la primera pregunta.
             indicePregunta = 0;
             mostrarPregunta(listaExamenes, num, indicePregunta);
 
             // Inicializamos la visibilidad de los botones.
-            document.getElementById("preguntaSiguiente").style.display = "block"; // Mostrar "Siguiente".
+            document.getElementById("preguntaSiguiente").style.display = "block"; // Mostrar boton "Siguiente".
+            document.getElementsByTagName("header")[0].firstElementChild.style.display = "none"
+            document.getElementsByTagName("header")[0].lastElementChild.style.display = "none";
             return true;
-
         } else {
             return false;
         }
@@ -114,7 +150,8 @@ window.addEventListener("DOMContentLoaded", function () {
     ///////////////////////////////////////////////
     //// Para mostrar la realizacion de examen ////
     ///////////////////////////////////////////////
-    let tabla = this.document.createElement("table");
+
+    let tabla = this.document.createElement("table"); // Declaramos la tabla donde vamos a escribir la tabla;
     let numeroPregunta = 1;
     let indicePregunta = 0; // Índice de la pregunta actual en el examen.
 
@@ -166,8 +203,16 @@ window.addEventListener("DOMContentLoaded", function () {
         document.getElementsByTagName("table")[0].style.margin = "0% 0% 0% 35%"
     }
 
+    // Listener  para pasar a la siguiente pregunta;
     document.getElementById("preguntaSiguiente").addEventListener("click", function () {
         numeroPregunta++;
+
+        //Coomprobamos si se ha pasado a la siguiente pregunta sin haber contestado, en ese caso se suma una "noContestada";
+        let respuestaSeleccionada = document.querySelector(`input[name="pregunta${numeroPregunta}"]:checked`);
+        if (!respuestaSeleccionada) {
+            noContestadas++;
+        }
+
         document.getElementById("comprobar").style.display = "block";
         if (indicePregunta < listaExamenes[num].preguntas.length - 1) {
             indicePregunta++; // Incrementar al siguiente índice.
@@ -182,6 +227,7 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Listener para corregir la pregunta;
     document.getElementById("comprobar").addEventListener("click", function () {
         // Obtener la respuesta seleccionada
         let respuestaSeleccionada = document.querySelector(`input[name="pregunta${numeroPregunta}"]:checked`);
@@ -189,6 +235,7 @@ window.addEventListener("DOMContentLoaded", function () {
         // Obtener todas las respuestas no seleccionadas
         let respuestasNoSeleccionadas = document.querySelectorAll(`input[name="pregunta${numeroPregunta}"]:not(:checked)`);
 
+        // En caso de no contestar y corregir, te muestra la opcion correcta en verde y las incorrectas en rojo;
         if (!respuestaSeleccionada) {
             noContestadas++;
             respuestasNoSeleccionadas.forEach(respuesta => {
@@ -222,17 +269,21 @@ window.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById("comprobar").style.display = "none";
     });
-
+    // Declaramos la lista de intentos;
     let listaIntentos = JSON.parse(localStorage.getItem("intentos")) || [];
 
+    // Listener para que cuando el Usuario decida terminar el examen, se debe crear el intento;
     this.document.getElementById("terminar").addEventListener("click", function () {
 
+        // Mensaje de confirmacion para terminar el examen;
         let confirmacion = confirm("¿Está seguro que desea terminar su intento? (Su nota se guardará automáticamente y las preguntas no contestadas se darán por incorrectas)");
 
         if (confirmacion == true) {
             let fechaRealizacion = new Date().toLocaleDateString('es-ES')
-            let totalPreguntas = examenesPorCategoria.length;
-            let nota = ((respuestasCorrectas / totalPreguntas) * 10) / 2;
+            let examenSeleccionado = listaExamenes.find(examen => examen.numeroExamen == num);
+        let totalPreguntas = examenSeleccionado.preguntas.length; // Número de preguntas en el examen
+        let nota = (respuestasCorrectas / totalPreguntas) * 10; // Nota basada en el porcentaje de respuestas correctas
+
 
             let numIntento = 1;
 
@@ -245,6 +296,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
             listaIntentos.push(intento);
             localStorage.setItem("intentos", JSON.stringify(listaIntentos));
+
+            document.getElementsByTagName("header")[0].firstElementChild.style.display = "flex"
+            document.getElementsByTagName("header")[0].lastElementChild.style.display = "flex";
 
             window.location.reload();
         }

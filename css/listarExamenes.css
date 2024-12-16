@@ -1,4 +1,9 @@
-/* General */
+h2{
+    text-align: center;
+    width: 100%;
+    background-color: rgb(163, 190, 163);
+    padding: 1% 0% 1% 0%;
+}/* General */
 body {
     display: flex;
     flex-direction: column;
@@ -7,7 +12,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Lista */
 #lista {
     background-color: aliceblue;
     width: 75%;
@@ -18,9 +22,14 @@ body {
     align-items: center;
 }
 
-#lista div {
-    width: 100%;
-    height: 80%;
+.listadoExamenes{
+    max-height: 80%; /* Aumenta la altura máxima */
+    max-width: 75%; /* Aumenta el ancho máximo */
+    width: 90%; /* Establece un ancho fijo si lo prefieres */
+    height: 80%; /* Ajusta automáticamente según el contenido */
+    overflow-y: auto; /* Habilita scroll vertical */
+    overflow-x: auto; /* Habilita scroll horizontal si es necesario */
+    border: 1px solid #ccc; /* Mantén el borde si lo necesitas */
 }
 
 select {
@@ -29,26 +38,46 @@ select {
 
 /* Tabla en Lista */
 #lista table {
-    margin: 0% 0% 0% 15%;
-    width: 75%;
-    height: 75%;
+    border: 1px solid black;
+    background-color: antiquewhite;
+    width: 100%;
+    height: 100%;
 }
-
+#lista table td, th{
+    border: 1px solid black;
+}
+th{
+    height: 10%;
+}
+.error{
+    width: 40%;
+    height: 50%;
+    margin: 10% 0% 0% 30%;
+}
 /* Estilos de columnas en Lista */
 table tr td:nth-child(1) {
-    background-color: lightblue;
     width: 5%;
     text-align: center;
 }
 
 table tr td:nth-child(2) {
-    background-color: lightgreen;
     width: 10%;
     width: 85%;
 }
 
 table tr td:nth-child(3) {
-    background-color: lightcoral;
+    text-align: center;
+    width: 10%;
+}
+table tr td:nth-child(3) button{
+    
+}
+table tr td:nth-child(3) p{
+    font-size: small; 
+    margin-top: 25%;
+}
+table tr td:nth-child(3) button{
+    margin-bottom: 15%;
 }
 
 table tr td:nth-child(3) p {

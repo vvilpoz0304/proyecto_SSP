@@ -9,11 +9,12 @@ header {
     width: 100%;
 }
 
-h2 {
-    padding: 0% 0% 4% 30%;
-    font-size: 40px;
+h2{
+    text-align: center;
+    width: 100%;
+    background-color: rgb(163, 190, 163);
+    padding: 1% 0% 1% 0%;
 }
-
 input,
 select {
     margin: 1% 0% 0% 3%;
@@ -66,12 +67,15 @@ table {
 table tr:first-of-type {
     font-size: 25px;
 }
-
-img {
+main img {
     width: 80%;
     height: 80%;
 }
-
+.error{
+    margin: 0% 0% 0% 10%;
+    width: 70%;
+    height: 70%;
+}
 #preguntaAnterior,
 #preguntaSiguiente {
     width: 7%;
@@ -92,6 +96,11 @@ img {
 #preguntaAnterior:hover,
 #preguntaSiguiente:hover {
     background-color: rgb(128, 192, 128);
+}
+#preguntaAnterior:active,
+#preguntaSiguiente:active{
+    width: 6%;
+    height: 17%;
 }
 
 #anadir,
@@ -121,4 +130,9 @@ img {
     background: linear-gradient(rgb(214, 218, 125), rgb(149, 155, 82), rgb(214, 218, 125));
     ;
     box-shadow: 2px 1px 25px 3px rgb(84, 110, 84);
+}
+#anadir:active,
+#terminar:active{
+    width: 19%;
+    height: 7%;
 }

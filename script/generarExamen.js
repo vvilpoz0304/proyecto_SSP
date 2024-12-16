@@ -1,8 +1,8 @@
-   window.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", function () {
   //Declaramos el array donde vamos a guardar las preguntas de la categoria elegida;
   let preguntasDeCategoria = [];
-
-  //Declaramos el array de examenes;
+  let listaCategorias = JSON.parse(localStorage.getItem("categorias")) || [];
+  //Declaramos el array de examenes para añadir uno nuevo o crearlo;
   let listaExamenes = JSON.parse(localStorage.getItem("examenes")) || [];
 
 
@@ -11,9 +11,8 @@
   // Variable que vamos a tomar como indice;
   let num = 0;
 
-  let listaCategorias = JSON.parse(localStorage.getItem("categorias")) || [];
 
-  // Creamos lla tabla donde vamos a mostrar la pregunta para añadir o no;
+  // Creamos la tabla donde vamos a mostrar la pregunta para añadir o no;
   let formPreguntas = document.getElementById("preguntas");
   let tabla = document.createElement("table");
   tabla.setAttribute("id", "tablaPreguntas");
@@ -76,19 +75,27 @@
         preguntasDeCategoria.push(listaPreguntas[i]);
       }
     }
-    console.log(preguntasDeCategoria.length);
     // Si existe alguna pregunta de la categoria seleccionada, llama a la funcion que escribe la pregunta;
     if (preguntasDeCategoria.length > 0) {
+      document.getElementById("advertencia").textContent = "";
+      document.getElementById("anadir").style.display = "block";
+      document.getElementById("terminar").style.display = "block";
       mostrarPregunta(num);
     } else {
       botonAnterior.style.display = "none";
       botonSiguiente.style.display = "none";
+      document.getElementById("anadir").style.display = "none";
+      document.getElementById("terminar").style.display = "none";
       // Si no hay preguntas de esa categoría, muestra un mensaje
       document.getElementById("tablaPreguntas").innerHTML = ""; // Limpia el contenedor de preguntas
-      let advertencia = document.createElement("p");
-      advertencia.textContent =
-        "Aún no existen preguntas de esta categoría :(";
+      let advertencia = document.getElementById("advertencia");
+      advertencia.style.fontWeight = "bolder";
+      advertencia.textContent = "Aún no existen preguntas de esta categoría :(";
       document.getElementById("preguntas").before(advertencia); // Añade el mensaje de advertencia
+      let imgError = document.createElement("img")
+      imgError.setAttribute("src", "images/noResults.png");
+      imgError.setAttribute("class", "error")
+      document.getElementById("preguntas").getElementsByTagName("table")[0].append(imgError);
     }
   });
 
@@ -171,21 +178,36 @@
   });
 
   let preguntasDeExamen = [];
+
+  let p = document.createElement("p");
+
+  p.textContent = "La prgunta ha sido añadida.";
+  document.getElementById("anadir").before(p);
+  p.style.display = "none"
+
   // Funcion para añadir la pregunta mostrada en un array de examenes
   this.document.getElementById("anadir").addEventListener("click", function () {
     preguntasDeExamen.push(preguntasDeCategoria[num]);
+    // Mostramos el mensaje de confirmacion de que la pregunta ha sido añadida
+    p.style.display = "block"
+    //Al segundo el mensaje vuelve a ocultarse
+    setTimeout(() => {
+      p.style.display = "none"
+    }, "1000");
   });
   // Funcion para añadir el array del examen con las preguntas al localStorage
   this.document.getElementById("terminar").addEventListener("click", function () {
-    let numeroDeExamenes = listaExamenes.length;
-    let fechaExamen = document.getElementById("formExamen").firstElementChild.nextElementSibling.nextElementSibling.value
-    let categoriaSeleccionada = document.getElementsByTagName("select")[0].value;
-    let examenNuevo = new Examen(numeroDeExamenes, fechaExamen, categoriaSeleccionada, preguntasDeExamen);
+    let confirmacion = confirm("¿Está seguro que desea terminar este examen? (Contiene " + preguntasDeExamen.length + " preguntas)");
+    if (confirmacion == true) {
+      let numeroDeExamenes = listaExamenes.length;
+      let fechaExamen = document.getElementById("formExamen").firstElementChild.nextElementSibling.nextElementSibling.value
+      let categoriaSeleccionada = document.getElementsByTagName("select")[0].value;
+      let examenNuevo = new Examen(numeroDeExamenes, fechaExamen, categoriaSeleccionada, preguntasDeExamen);
 
-   // console.log(numeroDeExamenes, fechaExamen, categoriaSeleccionada, examenNuevo)
-   listaExamenes.push(examenNuevo)
-   localStorage.setItem("examenes", JSON.stringify(listaExamenes))
-    preguntasDeExamen = [];
-    
+      listaExamenes.push(examenNuevo)
+      localStorage.setItem("examenes", JSON.stringify(listaExamenes))
+      preguntasDeExamen = [];
+      window.location.reload(); // Recargamos pa restablecer los inputs y la tabla;
+    }
   });
 });
