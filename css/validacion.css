@@ -71,7 +71,7 @@ main{
     height: 30px;
     object-fit: contain;
 }
-input, select{
+#registro input, #registro select{
     text-align: center;
     width: 35%;
     height: 10%;

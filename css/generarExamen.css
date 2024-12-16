@@ -15,8 +15,8 @@ h2{
     background-color: rgb(163, 190, 163);
     padding: 1% 0% 1% 0%;
 }
-input,
-select {
+#formExamen input,
+#formExamen select {
     margin: 1% 0% 0% 3%;
     width: 25%;
     border-radius: 5px;

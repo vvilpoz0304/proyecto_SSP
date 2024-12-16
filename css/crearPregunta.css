@@ -35,7 +35,7 @@ input:focus{
     border: 2px solid black;
     background-color: ivory;
 }
-select{
+#creador select{
     margin-bottom: 2%;
     width: 50%;
 }

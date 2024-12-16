@@ -1,0 +1,153 @@
+body {
+    background-color: #CED4DA;
+    color: white;
+}
+main {
+    background-color: #CED4DA;
+    color: black;
+}
+button{
+    background-color:#DEE2E6;
+}
+button:hover{
+    background-color: #999da0;
+}
+/* Cabecera, footer y home.html */
+header, footer{
+    background-color: #212529; /* Encabezado oscuro */
+    color: #FFFFFF;
+}
+header button {
+    background-color: #212529;
+}
+header button:hover {
+    background-color: #3d423d
+}
+h2{
+    background-color: #343A40;
+}
+#paneles button{
+    box-shadow: -3px 3px 3px 3px #20202033;
+}
+#paneles button:hover{
+    background-color: rgb(62, 66, 62);
+}
+#panelAdmin, #panelProf, #panelAlum{
+    background-color: rgba(108, 117, 125, 0.65);
+}
+/* Validacion de usuarios */
+#renglon, #registro{
+    background-color: #6C757D;
+}
+#save{
+    background-color: #DEE2E6;
+}
+#save:hover{
+    background-color: #999da0 ;
+}
+.eliminar{
+    background-color: #DEE2E6;}
+.eliminar:hover{
+    background-color: #999da0 ;
+}
+
+/* Crear Pregunta */
+#creador{  
+    background-color: #6C757D;
+}
+#creador button{
+    background-color:#DEE2E6;
+}
+#creador button:hover{
+    background-color: #999da0;
+}
+/* Generar Examen */
+#preguntas {
+    box-shadow: 1px 0px 20px 1px #20202033;
+    background: linear-gradient(#ADB5BD, #CED4DA, #ADB5BD);
+    color: black;
+}
+#preguntas table {
+    background: linear-gradient(#CED4DA, #ADB5BD, #CED4DA);
+}
+#preguntaAnterior,
+#preguntaSiguiente {
+    box-shadow: 1px 0px 20px 1px #00000033;
+    background-color: #ADB5BD;
+}
+
+#preguntaAnterior:hover,
+#preguntaSiguiente:hover {
+    background-color: #ADB5BD;
+}
+#pregunta #preguntaAnterior:active,
+#pregunta #preguntaSiguiente:active{
+    width: 6%;
+    height: 17%;
+}
+
+#anadir,
+#terminar {
+    border: 1px solid black;
+    background: linear-gradient(#ced6da, #ADB5BD, #CED4DA);
+    box-shadow: 1px 0px 20px 1px rgb(110, 129, 141);
+}
+
+#terminar {
+    background: linear-gradient(#98b2cc, #667d94, #98b2cc);
+}
+
+#anadir:hover {
+    background: linear-gradient(#a6aaaf, #7b8186, #a6aaaf);
+    box-shadow: 2px 1px 25px 3px rgb(69, 81, 88);
+}
+
+#terminar:hover {
+    background: linear-gradient(#838f9e, #546b7c, #838f9e);
+    ;
+    box-shadow: 2px 1px 25px 3px rgb(67, 84, 94);
+}
+
+/* Ver resultados */
+.contenedorTabla th{
+    background-color: #ADB5BD;
+}
+.contenedorTabla td{
+    background-color: #DEE2E6;
+}
+
+/* Realizar examen */
+#lista table {
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    background-color: #DEE2E6 ;
+}
+#lista table th{
+    height: 10%;
+    background-color: #ADB5BD;
+}
+#examen table {
+    background-color: #DEE2E6;
+}
+#comprobar,
+#terminar {
+    border: 1px solid black;
+    background: linear-gradient(#ced6da, #ADB5BD, #CED4DA);
+    box-shadow: 1px 0px 20px 1px rgb(110, 129, 141);
+}
+
+#terminar {
+    background: linear-gradient(#98b2cc, #667d94, #98b2cc);
+}
+
+#comprobar:hover {
+    background: linear-gradient(#a6aaaf, #7b8186, #a6aaaf);
+    box-shadow: 2px 1px 25px 3px rgb(69, 81, 88);
+}
+
+#terminar:hover {
+    background: linear-gradient(#838f9e, #546b7c, #838f9e);
+    ;
+    box-shadow: 2px 1px 25px 3px rgb(67, 84, 94);
+}
