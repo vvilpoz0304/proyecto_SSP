@@ -2,6 +2,7 @@ window.addEventListener("DOMContentLoaded", function () {
     //Conseguimos los datos necesarios para listar los examenes creados;
     let listaExamenes = JSON.parse(this.localStorage.getItem("examenes"))
     let listaCategorias = JSON.parse(localStorage.getItem("categorias")) || [];
+    console.log(listaExamenes);
     let examenesPorCategoria = [];
     let fechaHoy = new Date();
     let num;
@@ -19,7 +20,7 @@ window.addEventListener("DOMContentLoaded", function () {
     ///////////////////////////////////////////
 
     //Añadimos las categorias a filtrar
-    if (listaCategorias.length > 0) {
+    if (listaCategorias.length >= 0) {
         let opcionEnBlanco = document.createElement("option");
         opcionEnBlanco.setAttribute("value", "...");
         opcionEnBlanco.textContent = "...";
@@ -37,22 +38,23 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 
     // Funcion para recoger las preguntas que se muestran según la categoria seleccionada;
-    this.document.getElementsByTagName("select")[0].addEventListener("input", function () {
+    this.document.getElementById("categorias").addEventListener("input", function () {
         // Limpiar el área donde se mostrarán los exámenes
-        document.getElementById("lista").firstElementChild.nextElementSibling.nextElementSibling.innerHTML = "";
+        document.getElementById("lista").firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML = "";
     
         let categoriaSeleccionada = document.getElementsByTagName("select")[0].value;
         examenesPorCategoria = [];
     
         // Filtrar los exámenes según la categoría seleccionada
         for (let i = 0; i < listaExamenes.length; i++) {
-            if (listaExamenes[i].categoria === categoriaSeleccionada) {
+            if (listaExamenes[i].categoria == categoriaSeleccionada) {
                 examenesPorCategoria.push(listaExamenes[i]);
             }
         }
     
         // Llamar a la función para mostrar los exámenes filtrados, solo si hay resultados
         if (examenesPorCategoria.length > 0) {
+            console.log(examenesPorCategoria);
             mostrarListaExamenes(); // Llamamos la función sin pasar el parámetro de categoría, ya que lo estamos gestionando dentro
         } else {
             document.getElementsByTagName("main")[0].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML = "";
@@ -157,6 +159,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
 
     function mostrarPregunta(listaExamenes, num, indice) {
+        console.log(listaExamenes[num])
+        console.log(num)
+        console.log(indice)
         tabla.innerHTML = ""; // Limpiamos la tabla cada vez que se muestre una pregunta.
 
         // Declaramos una fila para el enunciado.

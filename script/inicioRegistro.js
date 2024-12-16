@@ -88,98 +88,105 @@ window.addEventListener("DOMContentLoaded", function () {
   /////////////////////////
 
   let nombreNuevo;
-  let contrasenaNueva;
-  let rolNuevo;
-  let mensajeContrasena = this.document.getElementById("mensaje");
+let contrasenaNueva;
+let rolNuevo;
+let mensajeContrasena = this.document.getElementById("mensaje");
 
-  this.document
-    .getElementById("registrarse")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-      listaUsuarios();
-      let lista = JSON.parse(localStorage.getItem("usuariosValidados"));
+this.document
+  .getElementById("registrarse")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+    listaUsuarios();
+    let lista = JSON.parse(localStorage.getItem("usuariosValidados"));
 
-      nombreNuevo = document.getElementById("nombre").value;
-      contrasenaNueva = document.getElementById("contrasenaRegistro").value;
-      rolNuevo = document.getElementById("rol").value;
+    nombreNuevo = document.getElementById("nombre").value;
+    contrasenaNueva = document.getElementById("contrasenaRegistro").value;
+    rolNuevo = document.getElementById("rol").value;
 
-      if (mensajeContrasena == null) {
-        mensajeContrasena = document.createElement("p");
-        let p = document.querySelector("#registrarse").getElementsByTagName("p");
-        p.id = "mensaje";
-      }
+    // Eliminar mensajes de error previos
+    let mensajesPrevios = document.querySelectorAll("#registrarse p");
+    mensajesPrevios.forEach((msg) => msg.remove());
 
-      if (validarContrasena(contrasenaNueva)) {
-        if (nombreNuevo == null || nombreNuevo == "" || contrasenaNueva == null || contrasenaNueva == "") {
-          let mensajeError = document.createElement('p');
-          mensajeError.textContent = "Los campos no pueden estar vacios."
-          mensajeError.style.color = 'red';
-          document.getElementById('registrarse').lastElementChild.after(mensajeError);
-        } else {
+    // Comprobar si el nombre ya existe en la lista
+    let existeUsuario = lista.some(usuario => usuario.nombre === nombreNuevo);
+
+    if (existeUsuario) {
+      // Mostrar un mensaje de error si el nombre ya existe
+      let mensajeError = document.createElement('p');
+      mensajeError.textContent = "El nombre de usuario ya está registrado.";
+      mensajeError.style.color = 'red';
+      document.getElementById('registrarse').append(mensajeError);
+    } else {
+      // Si el usuario no existe, validar campos vacíos
+      if (nombreNuevo == null || nombreNuevo.trim() === "" || contrasenaNueva == null || contrasenaNueva.trim() === "") {
+        let mensajeError = document.createElement('p');
+        mensajeError.textContent = "Los campos no pueden estar vacíos.";
+        mensajeError.style.color = 'red';
+        document.getElementById('registrarse').append(mensajeError);
+      } else {
+        // Validar la contraseña
+        if (validarContrasena(contrasenaNueva)) {
+          // Crear un nuevo usuario si todo está correcto
           let nuevoUsuario = new Usuario();
           nuevoUsuario.setUsuario(nombreNuevo, contrasenaNueva, rolNuevo, false);
           lista.push(nuevoUsuario);
           localStorage.setItem("usuariosValidados", JSON.stringify(lista));
 
+          // Limpiar campos
           document.getElementById("nombre").value = "";
           document.getElementById("contrasenaRegistro").value = "";
-
+        } else {
+          // Mensaje de error de contraseña
+          let mensajeContrasena = document.createElement('p');
+          mensajeContrasena.textContent = "La contraseña debe tener entre 8 y 16 caracteres, mayúsculas, minúsculas y símbolos.";
+          mensajeContrasena.style.color = "red";
+          document.getElementById("registrarse").append(mensajeContrasena);
         }
-
-      } else {
-        mensajeContrasena.innerHTML = `La contraseña debe tener entre 8 y 16 caracteres, mayus, minus y símbolos`;
-        mensajeContrasena.style.color = "red";
-        document.getElementById("registrarse").append(mensajeContrasena);
-        console.log(mensajeContrasena);
-      }
-
-    });
-
-  function validarContrasena(contrasenaUsuario) {
-    let tieneMayusculas = false;
-    let suficientes = false;
-    let tieneMinusculas = false;
-    let tieneNumeros = false;
-    let tieneSimbolos = false;
-    let simbolos = "-_@#$&%";
-
-    for (let char = 0; char < contrasenaUsuario.length; char++) {
-      if (contrasenaUsuario.length >= 8 && contrasenaUsuario.length <= 16) {
-        suficientes = true;
-      }
-      if (contrasenaUsuario[char] >= "A" && contrasenaUsuario[char] <= "Z") {
-        tieneMayusculas = true;
-      }
-      if (contrasenaUsuario[char] >= "a" && contrasenaUsuario[char] <= "z") {
-        tieneMinusculas = true;
-      }
-      if (contrasenaUsuario[char] >= 0 && contrasenaUsuario[char] <= 9) {
-        tieneNumeros = true;
-      }
-      if (simbolos.includes(contrasenaUsuario[char])) {
-        tieneSimbolos = true;
       }
     }
+  });
 
-    if (suficientes == true) {
+// Función para validar la contraseña
+function validarContrasena(contrasenaUsuario) {
+  let tieneMayusculas = false;
+  let suficientes = false;
+  let tieneMinusculas = false;
+  let tieneNumeros = false;
+  let tieneSimbolos = false;
+  let simbolos = "-_@#$&%";
+
+  // Verificar cada carácter de la contraseña
+  for (let char = 0; char < contrasenaUsuario.length; char++) {
+    if (contrasenaUsuario.length >= 8 && contrasenaUsuario.length <= 16) {
+      suficientes = true;
     }
-    if (tieneMayusculas == true) {
+    if (contrasenaUsuario[char] >= "A" && contrasenaUsuario[char] <= "Z") {
+      tieneMayusculas = true;
     }
-    if (tieneMinusculas == true) {
+    if (contrasenaUsuario[char] >= "a" && contrasenaUsuario[char] <= "z") {
+      tieneMinusculas = true;
     }
-    if (tieneSimbolos == true) {
+    if (contrasenaUsuario[char] >= "0" && contrasenaUsuario[char] <= "9") {
+      tieneNumeros = true;
     }
-    if (
-      tieneNumeros &&
-      tieneMayusculas &&
-      tieneMinusculas &&
-      tieneSimbolos &&
-      suficientes
-    ) {
-      mensajeContrasena.innerHTML = `Usuario Registrado`;
-      mensajeContrasena.style.color = "green";
-      document.getElementById("registrarse").append(mensajeContrasena);
-      return true;
+    if (simbolos.includes(contrasenaUsuario[char])) {
+      tieneSimbolos = true;
     }
   }
+
+  // Si todos los requisitos se cumplen
+  if (
+    tieneNumeros &&
+    tieneMayusculas &&
+    tieneMinusculas &&
+    tieneSimbolos &&
+    suficientes
+  ) {
+    return true;
+  }
+
+  // Si no cumple, retorna false
+  return false;
+}
+
 });

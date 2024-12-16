@@ -200,7 +200,7 @@ window.addEventListener("DOMContentLoaded", function () {
     let confirmacion = confirm("¿Está seguro que desea terminar este examen? (Contiene " + preguntasDeExamen.length + " preguntas)");
     if (confirmacion == true) {
       let numeroDeExamenes = listaExamenes.length;
-      let fechaExamen = document.getElementById("formExamen").firstElementChild.nextElementSibling.nextElementSibling.value
+      let fechaExamen = document.getElementById("formExamen").firstElementChild.nextElementSibling.value
       let categoriaSeleccionada = document.getElementsByTagName("select")[0].value;
       let examenNuevo = new Examen(numeroDeExamenes, fechaExamen, categoriaSeleccionada, preguntasDeExamen);
 
